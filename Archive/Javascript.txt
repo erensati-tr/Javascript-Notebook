@@ -1,0 +1,3022 @@
+-İçerik(Index)-
+1.Başlamadan Önce
+2.Javascript Nedir?
+3.Kod Yazma Notasyonları
+4.İsimlendirme Kuralları
+5.Değişkenler
+6.Konsol Komutları
+7.Veri Tipleri
+8.Tür Dönüşümleri
+9.Kaçış Karakterleri
+10.Yorum Satırları
+11.Operatörler
+12.Karar Yapıları
+13.Döngüler
+14.Deyimler
+15.İşlem Önceliği
+16.Fonksiyonlar
+17.Diziler
+18.Hata Yönetimi
+19.ECMAScript 6+
+20.OOP(Object Oriented Programming)
+21.Javascript Objeleri
+22.JS ile Asenkron Programlama
+23.AJAX
+24.JSON
+25.Performans için İpuçları
+26.NOT
+27.DOM(Document Object Model)
+28.BOM(Browser Object Model)
+
+
+
+
+
+-Başlamadan Önce-
+#Bu dökümanda kullanılan tüm komutlar aksi belirtilmediği sürece IE 10 ve üzeri sürümler tarafından desteklenmektedir. Browser desteği konusunda özel bir durum varsa
+ya da farlı tarayıcılar için farklı komutların yazılması gerekiyorsa bu ilgili komutun anlatıldığı yerde belirtilecektir.
+#Bu dökümanda kod ve komut kelimeleri aynı anlamda kullanılmıştır.
+
+
+
+
+
+-Javascript Nedir?-
+#1995 yılında Brendan Eich tarafından geliştirilen bir dildir ve dinamik(hareketli, animasyonlu, kullanıcı ile etkileşimli) web sayfaları oluşturmak için kullanılır.
+#Bir programlama dilinin yeteneklerine sahip olmakla birlikte browser tabanlı bir dil olduğu için Javascript ile doğrudan mobil, desktop ve server tabanlı uygulamalar
+geliştirilemez. Doğrudan dedim çünkü bu tür uygulamalar üretebilmek için react, angular, electron, nodejs gibi bazı Javascript kütüphanelerinin kullanılması gerekir.
+#Javascript kodları derlenerek çalışmaz. Web browser'lar javascript komutlarını yukarıdan aşağıya doğru belge içindeki yazılma sırasına göre çalıştırır ve bu işleme
+derlemenin aksine yorumlama denmektedir.
+#Javascript 1997 yılında ECMA standardı olmuştur ve şuan resmi adı ECMAScript'tir. ECMA, yani European Computer Manufacturers Association(Avrupa Bilgisayar Üreticileri 
+Birliği) bilgisayar sektöründe üretilen ürünler için standartlar oluşturan bir kuruluştur.
+#Javascript'in günümüze kadar birçok sürümü yayınlandı ve bu sürümlerle dile yeni yetenekler kazandırıldı. Javascript sürümleri hakkında detaylı bilgi için 
+"https://www.w3schools.com/js/js_versions.asp" adresini ziyaret edebilirsiniz.
+
+
+
+
+
+-Kod Yazma Notasyonları-
+#CamelCase : Kelimeler bitişik ve her kelimenin ilk harfi büyük yazılır. Class isimlerinde kullanılır.
+[
+  class Ogrenci{
+
+  }
+
+  //veya
+
+  function Musteri(isim){
+  	this.isim = isim;
+  }
+]
+
+İlk kelimenin ilk harfinin küçük yazıldığı da olabilir. Değişken, fonksiyon, dizi ve obje isimlerinde kullanılır.
+[
+  var asalSayilar = [2, 3, 5, 7];
+  var personel = {
+    isim: "Eren Satı",
+    yas: 27,
+    medeniDurum: false
+  }
+]
+
+#Snake_Case veya snake_case : Kelimeler alt tire ile birbirine bağlanır.
+#SCREAMING_SNAKE_CASE : Bazı programlama dillerinde sabitler için kullanılır.
+#kebap-case : Tüm harfler küçük olarak yazılır ve kelimeler arasında - bulunur. Javascript bu notasyonu desteklemez.
+#Macar Notasyonu : Değişken isimlerinde kullanılır. Kelimeler bitişik ve ilk harfleri büyük olacak şekilde yazılır, değişkenin tipini gösteren bir ek de ismin başına eklenir.
+[
+  var sSonuc; //s öneki değişkenin string tipte olduğunu gösterir.
+]
+
+
+
+
+
+-İsimlendirme Kuralları-
+#İsimler rakam ile başlayamaz ancak rakam kullanılabilir.
+#Özel karakterler kullanılamaz.(_ , $ hariç)
+#Türkçeye özel karakterlerin kullanılması tavsiye edilmez.
+#Anahtar kelimeler(var, function, class...), deyimler(continue, break, return) ve rezerve edilmiş kelimeler de değişken, fonksiyon class vb. ismi olarak kullanılamazlar.
+
+
+
+
+
+-Değişkenler(Variables)-
+#Bellekte(RAM) veri saklamak için kullanılır.
+#Javascript'te var, let ve const anahtar kelimeleri ile tanımlanabilirler.
+[
+  var isim = "Eren"; //string
+
+  var yas = 27; //number
+
+  var medeniDurum = false; //boolean
+]
+
+#String'ler için çift veya tek tırnak kullanılabilir.
+#Virgüllü sayılar virgülle değil nokta ile yazılır. ÖR -> var sayi = 5.23;
+#Onaltılık sayıların önünde "0x" bulunur. ÖR -> var sayi = 0xFF;
+
+#Değişkenlere null değer verilebilir.
+[
+  var x = null;
+  console.log(x); //null
+  console.log(typeof x); //object -> Javascript'teki bir bug, null ilkel(primitive) bir tip olmasına rağmen object değeri döndü.
+]
+
+null gerçekten ilkel mi? Kanıt :
+[
+  var x = null;
+  var y = x;
+  x = 10;
+  console.log(y); //null --> Eğer null referans tip olsaydı x'in bellekteki adresi y'ye aktarılacağı için x 10 olduğunda y'nin değeri de 10 olacaktı.
+]
+
+#undefined nedir?
+[
+  //Değer ataması yapılmamış değişkenler undefined olur.
+  var x;
+  console.log(x); //undefined
+  console.log(typeof x); //undefined
+
+  //undefined ayrıca ilkel bir tiptir ve değişkenlere değer olarak verilebilmektedir.
+  var y = undefined;
+  console.log(y); //undefined
+  console.log(typeof y); //undefined
+]
+
+Bir javascript değişkeni değer atanmadan tekrar tanımlanırsa değerini kaybetmez(undefined olmaz) :
+[
+  var e;
+  e = 10;
+  var e;
+  console.log(e); //10
+
+  //undefined değeri vererek değişkenlerin değerlerini sıfırlayabilirsiniz.
+
+  var e;
+  e = 10;
+  e = undefined;
+  console.log(e); //undefined;
+
+  //Dizi, obje ve fonksiyonlar(var veya let ile tanımlanmışsa) da değişkenlere atama yapılarak tanımlandığı için onların da undefined olması sağlanabilir.
+]
+
+#const anahtar kelimesiyle sabit(içeriği değiştirilemeyen) değişkenler oluşturulur. (Dizi, obje ve fonksiyonlar da değişkenlere atama yapılarak tanımlandığı
+için onların da const olması sağlanabilir). [IE 11+]
+[
+  const isim = "Eren"; //Değişken
+  
+  const sayilar = [1, 2, 3, 4, 5]; //Dizi değişken
+  
+  const ogrenci = { //Obje
+    isim: "Tuğrul",
+    yas: 23,
+    bolum: "Bilgisayar"
+  }
+  
+  const Personel = function(isim){  //Class
+    this.isim = isim;
+  }
+
+  const adres; //Yanlış. Değer ataması yapmak zorundayız.
+
+  isim = "Mehmet"; //Yanlış. Değer değişikliği yapamıyoruz.
+
+  sayilar = [3, 5, 7]; //Yanlış. Sadece içerik değişebilir.
+
+  ogrenci = {  //Yanlış. Sadece içerik değişebilir.
+    sehir: "İstanbul"
+  }
+
+  Personel = function(isim, yas){ //Yanlış. Yeniden tanımlayamazsınız.
+    this.isim = isim;
+    this.yas = yas;
+  }
+
+  sayilar[0] = 10; //Doğru. İlk elemanın değeri(1) 10 olarak değişir.
+  sayilar.push(6); //Doğru. Dizinin sonuna 6 değeri eklenir.
+  sayilar.unshift(); //Doğru. Dizinin ilk elemanını siler.
+
+  ogrenci.sehir = "İstanbul"; //Doğru. Obje içine eleman ekleyebiliriz.
+  delete ogrenci.isim; //Doğru. Obje içindeki isim değişkeni silinir.
+
+  Personel.personelSayisi = 0; //Doğru. BİLGİ -> class'lara statik değişkenler bu şekilde eklenmektedir. Bu değişken sadece Personel.personelSayisi şeklinde ilgili class'ın
+                               //örneği alınmadan kullanılabilir. class'ın örneği alındıktan sonra obje üzerinden kullanılamaz. 
+                               //ÖR -> var personel1 = new Personel("Eren"); console.log(personel1.personelSayisi); //undefined
+                               //class'ın constructor'ında Personel.personelSayisi++; yaparak her obje oluşturulduğunda değişkenin değerini arttırabilirsiniz. Bu sayede
+                               //toplam kaç personel olduğu saklanabilir.
+]
+
+#var, let[IE 11+], const[IE 11+] farkı ve scope kavramı
+
+1. Fark
+[
+  var a = 1;
+  let b = 2;
+  const c = 3;
+
+  //Değer değişikliği yapalım.
+  a = 4; //Doğru
+  b = 5; //Doğru
+  c = 6; //Yanlış
+
+  //Yeniden tanımlayalım.
+  var a = 10; //Doğru.
+  let b = 20; //Yanlış. Yeniden tanımlanamaz.
+  const c = 30; //Yanlış. Yeniden tanımlanamaz.
+]
+
+Scope'ları Tanıyalım
+[
+  //Global scope
+  var a = 1;
+  let b = 2;
+  const c = 3;
+
+  function deneme(){ //Function scope
+    var a = 4;
+    let b = 5;
+    const c = 6;
+
+    console.log(a, b, c); //4, 5, 6
+    console.log(this.a, this.b, this.c); //1, undefined, undefined -> Global scope'daki a değişkeni var ile tanımlandığı için this anahtar kelimesiyle ulaşabilirsiniz. 
+  }
+  deneme();
+
+  console.log(a, b, c); //1, 2, 3 --> Fonksiyon içinde aynı isimde değişkenler tanımlamamıza rağmen global scope'daki değerler değişmedi. Çünkü Function
+                        //scope'da tanımlanan değişkenler sadece fonksiyon içinde yaşarlar.
+]
+
+2.Fark ve Block Scope
+[
+  //Global scope
+  var a = 1;
+  let b = 2;
+  const c = 3;
+
+  //Block Scope
+  {
+    var a = 4;
+    let b = 5;
+    const c = 6;
+
+    console.log(a, b, c); //4, 5, 6 -> Block Scope tıpkı Function Scope gibi davrandı ancak bir farkla! Bir sonraki konsol çıktısına bak.
+  }
+
+  console.log(a, b, c); //4, 2, 3 -> Block scope'da var ile tanımladığımız a değişkeni global scope'daki a'nın değerini değiştirdi.
+]
+
+NOT:if-else, switch-case ve döngü blokları da Block scope kapsamındadır.
+
+
+
+
+
+-Konsol Komutları-
+#console.log : Konsola bilgi yazmak için kullanılır.
+[
+  console.log(this); //window objesini verir.
+  console.log(true); //true;
+  console.log("Deneme yazısı..."); //Deneme yazısı...
+  console.log([1, 2, 3]); //1, 2, 3
+]
+
+#console.clear() : Konsolu temizlemek için kullanılır.
+#console.error() : Konsolda hata mesajı göstermek için kullanılır
+[
+  console.error("Eren Satı"); //Eren Satı
+  console.error(1);  //1
+  console.error([1,2]); //[1,2]
+  console.error(this); //Window{parent : Window, ...}
+]
+
+#console.warn() : Konsolda uyarı mesajı göstermek için kullanılır.
+[
+  console.warn("deneme"); //deneme;
+] 
+
+NOT : Bu komutlar Javascript dosyaları içerisinden veya geliştirici konsolundan elle girilerek kullanılabilir.
+
+#Konsol komutları hakkında daha fazla bilgi için "https://developer.mozilla.org/en-US/docs/Web/API/Console" adresine bakınız.
+
+
+
+
+
+-Veri Tipleri(Data Types)-
+#Javascript'te tipler referans ve ilkel tipler olmak üzere ikiye ayrılır.
+[
+  //Primitive Types : string, number, boolean, null, undefined
+  //Reference Types : Object tipinde olan yapılar -> object, array, function
+ 
+  //Referans Tipler
+  var hayvanlar = ["Kedi", "Köpek", "Kuş"];
+  console.log(typeof hayvanlar); //object
+
+  var ogrenci = {isim:"Kerem"}
+  console.log(typeof ogrenci); //object
+
+  function cube(x){
+    return x*x*x;
+  }
+  console.log(typeof cube); //function -> function dönmesine rağmen fonksiyonlar referans tiplerdir.
+]
+
+#İlkel ve referans tiplerin farklı davranışları : 
+[
+  //İlkel tiplerde içerik kopyalanır, referans tiplerde ise bellek adresi aktarılır.
+  var x = 5;
+  var y = x;
+  x = 10;
+  console.log(y); //5 -> y'nin değeri değişmedi.
+
+  var sayilar = [1, 2, 3];        
+  var sayilar2 = sayilar;
+  sayilar.push(4);
+  console.log(sayilar2); //[1, 2, 3, 4] -> sayilar2'ye sayilar dizisinin içeriği değil bellekteki adresi aktarıldı. Bu yüzden ilk diziye eklenen 4 değeri sayilar2'yi de etkilemiş oldu.
+                         //İlkel tipler bu şekilde davranmaz.
+
+  //İlkel tiplerde içerik kontrol edilir, referans tiplerde ise adresler.
+  var x = 5;
+  var y = 5;
+  console.log(x===y); //true
+
+  var gun = ["Pazartesi"];
+  var gun2 = ["Pazartesi"];
+  console.log(gun===gun2); //false -> Aynı değeri içeriyorlar ancak bellek adresleri farklı. Karşılaştırma adresler üzerinden yapıldığı için false sonucu döndü. Bu karşılaştırma aşağıdaki gibi
+                           //yapılsaydı sonuç farklı olurdu.
+  //var gun = ["Pazartesi"];
+  //var gun2 = gun;
+  //console.log(gun===gun2); //true
+]
+
+
+
+
+
+-Tip Dönüşümleri-
+#Convert to String
+[
+  //String -> Parametre olarak verilen değeri string tipine dönüştürüp geri gönderir.
+  console.log(typeof String(51)); //string
+  console.log(typeof String(3.14)); //string
+  console.log(typeof String(true)); //string
+  console.log(typeof String(false)); //string
+  console.log(typeof String("JS")); //string
+  console.log(typeof String(null)); //string
+
+  var deger = String([1, 2, "Ahmet", true]);
+  console.log(deger); //1,2,Ahmet,true
+  console.log(typeof deger); //string
+
+  var deger = String(function msg(){});
+  console.log(deger); //function msg(){}
+  console.log(typeof deger); //string
+
+  var deger = String(undefined);
+  console.log(deger); //undefined
+  console.log(typeof deger); //string
+
+  console.log(typeof (215).toString()); //string
+  console.log(typeof ([100,101,102]).toString()); //string
+]
+
+#Convert to Number
+[
+  //parseInt -> Parametre olarak verilen değeri number tipine dönüştürüp geri gönderir. Tamsayılar için kullanılır, virgüllü sayılarda virgülden sonrasını atar.
+  console.log(typeof parseInt("123")); //number
+  console.log(typeof parseInt(456)); //number
+  console.log(typeof parseInt(3.14)); //number ->Virgülden sonrası atılır.
+
+  var deger = parseInt(null);
+  console.log(deger); //NaN ->(Not a Number) Dönüşüm olmadı.
+
+  var deger = parseInt(undefined);
+  console.log(deger); //NaN ->Dönüşüm olmadı.
+
+  var deger = parseInt("Hello");
+  console.log(deger); //NaN ->Dönüşüm olmadı.
+
+  //parseInt yerine parseFloat ve Number fonksiyonları da kullanılabilir. Bu iki fonksiyon hem virgüllü hem de tamsayıları dönüştürebilmektedir.
+]
+
+#Auto Convert
+[
+  console.log("55" + 22); //5522
+
+  //İşlem önceliği soldan sağa doğru olduğu için önce iki sayı toplanır sonra string ifadeyle birleştirilir.
+  console.log(25 + 20 + "50"); //4550
+
+  //Javascript matematiksel işlemlerde string'leri sayılara dönüştürür. Birleştirme operatörü(+) hariç.
+  var x = "100";
+  var y = "10";
+
+  console.log(x - y); //90
+  console.log(x * y); //1000
+  console.log(x / y); //10
+]
+
+
+
+
+
+-Kaçış Karakterleri(Escape Characters)-
+\n : Yeni satır
+\t : Tab
+\\ : Backslash
+\' : Tek tırnak içinde tek tırnak kullanımı
+\" : Tırnak içinde tırnak kullanımı
+
+NOT : \n ve \t genellikle console.log komutuyla beraber kullanılır. alert, prompt ve confirm fonksiyonları içerisinde kullanıldığında Chrome, Opera ve Yandex tarafından 
+çalıştırılmaz.
+
+
+
+
+
+-Yorum Satırları(Comment Lines)-
+// : Tek satırlık yorumlar için
+/* */ : Birden fazla satır için
+
+
+
+
+
+-Operatörler(Operators)-
+#Aritmetik Operatörler
++ : String ifadeleri birleştirir, sayısal ifadeleri toplar.
+- : Çıkarma yapmak için kullanılır.
+* : Çarpma yapmak için kullanılır.
+/ : Bölme yapmak için kullanılır.
+% : Bölümden kalanı bulmak için kullanılır. ÖR -> console.log(10 % 4); //2
+
+#Atama Operatörleri
+= : Soldaki değere sağdakini atar.
++= : Topla ve ata. ÖR -> var x = 5; x += 5; console.log(x); //10 -> x += 5 ile x = x + 5; aynı işlemi yapmaktadır.
+-= : Çıkar ve ata.
+*= : Çarp ve ata.
+/= : Böl ve ata.
+%= : Mod al ve ata.
+
+#Arttırma ve Azaltma Operatörleri
+x++ : x'i bir arttır.
+++x : x'i bir arttır.
+[
+  //++x ile arasındaki fark şudur:
+  var x = 10;
+  console.log(x++); //10
+  console.log(x); //11
+
+  var y = 10;
+  console.log(++y); //11
+  console.log(y); //11
+]
+
+x-- : x'i bir azalt.
+--x : x'i bir azalt.
+
+#Karşılaştırma Operatörleri
+== : Eşitse
+=== : Eşitse(Veri tipleri de karşılaştırmaya dahil edilir)
+!= : Eşit değilse
+!== : Eşit değilse(Veri tipleri de karşılaştırmaya dahil edilir)
+[
+  console.log(5 != 5); //false
+  console.log(5 != "5"); //false
+  console.log(5 !== "5"); //true
+]
+
+> : Büyükse
+< : Küçükse
+>= : Büyük ya da eşitse
+<= : Küçük ya da eşitse
+
+#Mantıksal Operatörler
+&& : Mantıksal VE operatörü. Tüm koşulların sağlanması durumunda true aksi halde false döner.
+[
+  console.log(5 == 5 && 4 < 6); //true
+  console.log(5 == 5 && 6 < 4); //false
+  console.log(5 == 5 && 6 > 4 && 10 < 11); //true
+]
+
+|| : Mantıksal VEYA operatörü. Koşullardan en az biri(veya daha falası ya da tümü) sağlanıyorsa true, hiçbir koşulun sağlanmaması durumda ise false döner.
+[
+  console.log(1 == 1 || 2 < 1); //true
+  console.log(1 == 2 || 1 == 1 || 10 < 9 || 3 > 100 || 5 == 5); //true
+  console.log(0 > 3 || 5 > 10); //false
+]
+
+! : Mantıksal değil operatörü. Kendisinden sonra gelen değerin değilini yani tersini(zıttını) döndürür.
+[
+  console.log(!false); //true
+  console.log(!5); //false -> 0'dan büyük sayılar true olarak kabul edildiği için false sonucunu döndü.
+]
+
+#Bit Düzeyinde İşlem Yapan Operatörler
+& : AND Operatörü
+| : OR Operatörü
+~ : NOT Operatörü
+^ : XOR Operatörü
+
+Örnekler:
+[
+  console.log(25 & 14); //8
+
+  console.log(25 | 14); //31
+  console.log(255 | 0); //255
+
+  console.log(25 ^ 14); //23
+  console.log(255 ^ 0); //255
+
+  console.log(~26);
+
+  //25 : 00011001 
+  //14 : 00001110
+  //&
+  //8  : 00001000
+  //|
+  //31 : 00011111
+  //^
+  //23 : 00010111  
+]
+
+NOT : Daha fazla bilgi için -> "https://www.w3schools.com/js/js_bitwise.asp"
+
+#Kaydırma Operatörleri
+<< : Sola kaydırma
+>> : Sağa kaydırma
+
+Örnekler
+[
+  console.log(16 << 1); //32 (Sayı 2 ile çarpılır)
+  console.log(16 << 2); //64 (Sayı 2 defa 2 ile çarpılır)
+  console.log(16 >> 1); //8 (Sayı 2'ye bölünür)
+  console.log(16 >> 2); //4 (Sayı 2 defa 2'ye bölünür.)
+
+  console.log(17 << 1); //34
+  console.log(17 << 2); //68
+  console.log(17 >> 1); //8 -> 17/2 aslında 8.5 olmasına rağmen virgülden sonrası kayboldu.
+]
+
+#Özel Operatörler
+(koşul) ? işlem1 : işlem2 : Ternary operatörü. 
+[
+  console.log((true) ? "Eren" : 2); //Eren
+  console.log((5 == 6) ? "Eşit" : "Eşit değil"); //Eşit değil
+  (3 > 1) ? console.log("Büyük") : console.log("Büyük değil"); //Büyük
+]
+
+typeof : Bu operatör kendisinden sonra yazılan değerin tipini döndürür.
+in : Özellik ya da metot belirtilen obje içindeyse ya da prototip zincirinde tanımlıysa true değerini döndürür.
+[
+  //NOT : Özellik, metot isimleri tırnak içinde yazılmalıdır ve küçük-büyük harf ayrımına dikkat edilmelidir. Dizi indeksleri tırnak içine alınmayabilir.
+
+  var ogrenci = {ad: 'EREN', yas: 27, tanit: function(){}};
+  console.log("ad" in ogrenci); //true
+  console.log("soyad" in ogrenci); //false
+  console.log("tanit" in ogrenci); //true
+  console.log("tanit()" in ogrenci); //false
+  console.log("toString" in ogrenci); //true -> Object sınıfının prototipi içinde mevcut.
+
+  console.log("PI" in Math); //true
+  console.log("pow" in Math); //true
+  console.log("pow()" in Math); //false
+  console.log("Pow" in Math); //false
+
+  var gunler=["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
+  console.log("Salı" in gunler); //false
+  console.log(0 in gunler); //true
+  console.log("1" in gunler); //true
+  console.log(10 in gunler); //false
+
+  console.log("toString" in Math); //true
+]
+
+instanceof : Bir objenin constructor'larını öğrenmek için kullanılabilir.
+[
+  var dizi = new Array(1, 2, 3);
+  console.log(dizi instanceof Array); //true
+  console.log(dizi instanceof Object); //true
+  console.log(dizi instanceof String); //false
+
+  var urun = {isim: 'Sütaş Ayran', fiyat: 1.25};
+  console.log(urun instanceof Array); //false
+  console.log(urun instanceof Object); //true
+
+  function Class1(){}
+  var obje = new Class1();
+  console.log(obje instanceof Class1); //true
+  console.log(obje instanceof Object); //true
+  console.log(obje instanceof Function); //false
+  console.log(Class1 instanceof Object); //true
+  console.log(Class1 instanceof Function); //true
+  
+  console.log(Function instanceof Object); //true
+  console.log(Object instanceof Function); //true
+]
+
+delete : Objelerin özellik ve metotlarını silmek için kullanılır.
+new : Programcı tarafından oluşturulan ya da hazır gelen class'lardan obje üretmek için kullanılır.
+this : İçinde bulunduğumuz objeyi verir.
+[
+  console.log(this); //Global scope'da this window objesini verir.
+
+  var sayi = 1;
+  let sayi2 = 2;
+  const sayi3 = 3;
+  console.log(this.sayi, this.sayi2, this.sayi3); //1, undefined, undefined ->var ile tanımlanan değişkenler window objesinin özelliği olurlar. Bu nedenle this anahtar
+                                                  //kelimesiyle ulaşmak mümkündür.
+
+  window.alert("Deneme1"); //Deneme1
+  this.alert("Deneme2"); //Deneme2
+  alert("Deneme3"); //Deneme3 ->window objesi içindeki özellik ve metotlar kullanılırken this veya window'un yazılmasına gerek yoktur.
+
+  //ÖNEMLİ
+  function Ogrenci(isim, yas){
+    this.isim = isim; //window objesi altında isim adında değişken oluşturulur ve Eren değeri aktarılır.
+    this.yas = yas; //Bu durum bu değişken için de geçerlidir.
+    console.log(this.isim); //Eren
+    console.log(this); //window objesini verir.
+  }
+  Ogrenci("Eren", 27); //Bu şekilde çalıştırılırsa yukarıdaki işlemler gerçekleşir.
+
+  //Bu fonksiyondan obje üretildiğinde ise aşağıdaki işlemler gerçekleşir.
+  function Ogrenci(isim, yas){
+    this.isim = isim; //Değişken window objesi içinde değil class'ın instance'ı(ogrenci objesi) içinde oluşturulur.
+    this.yas = yas; //Bu durum bu değişken için de geçerlidir.
+    console.log(this.isim); //Tuğrul
+    console.log(this); //ogrenci objesini verir.
+  }
+  var ogrenci = new Ogrenci("Tuğrul", 23);
+
+  //Her ikisinin birden kullanıldığı durumda ise:
+  function Ogrenci(isim, yas){
+    this.isim = isim;
+    this.yas = yas;
+    console.log(this.isim);
+    console.log(this);
+  }
+  Ogrenci("Ahmet", 18); //Fonksiyon çalışır window objesi içinde isim ve yas adlı değişkenler oluşturulup değerleri aktarılır, daha sonra Ahmet değeri ile window objesi konsola yazılır. 
+  var ogrenci=new Ogrenci("Mehmet", 10); //isim ve yas sadece objenin içinde oluşturulup değerleri aktarılır, ardından da Mehmet değeri ile ogrenci objesi konsola eklenir ve bu değerler
+                                         //birbirleriyle karışmazlar.
+]
+
+NOT : Bu başlık altında görmediğimiz operatörler : <<= , >>= , &= , ^= , |=
+
+
+
+
+
+-Karar Yapıları(Conditional Statements)-
+#Kullanımı diğer programlama dillerinde olduğu gibidir. Gereksiz detay vermeyeceğim.
+#if, else if, else ve switch, case yapılarını kullanabilirsiniz.
+[
+  //if(){}elseif{}else{}
+  //veya
+
+  switch(3){
+    case 1:
+      console.log("bir");
+    //break kullanmadığımıza dikkat edin.
+    case 3:
+      console.log("üç") //üç
+    break;
+    case 5:
+      console.log("beş");
+    break;
+    default:
+      console.log("hiçbiri değil");
+  }
+
+  //Bu örneği 3'ü silip 1 yazdıktan sonra yeniden çalıştıralım.
+
+  switch(1){
+    case 1:
+      console.log("bir"); //bir
+    //break kullanmadığımıza dikkat edin.
+    case 3:
+      console.log("üç") //üç
+    break;
+    case 5:
+      console.log("beş");
+    break;
+    default:
+      console.log("hiçbiri değil");
+  }
+]
+
+
+
+
+
+-Döngüler(Loops)-
+#Karar yapılarına benzer şekilde diğer programlama dillerindeki gibi kullanılırlar. Ek olarak "for in" ve "for of" döngüleri mevcuttur. "for of", ES6 başlığı altında 
+incelenecektir.
+[
+  //for(){}
+  //while();
+  //do{}while(); standart döngülerimiz...
+
+  //for in
+  var harfler = ["a", "b", "c", "d", "e", "f"];
+  for(harf in harfler){
+    console.log(harf); //0, 1, 2, 3, 4, 5 -> Elemanlar değil indeks değerleri yazıldı.
+  }
+  //O halde elemanlara şöyle ulaşabiliriz.
+  for(harf in harfler){
+    console.log(harfler[harf]); //a, b, c, d, e, f
+  }
+
+  //Objelerin değerlerini okumak
+  var obj = {ozellik: "deger", ozellik2: "deger2", ozellik3: function(){console.log("Deneme yazısı...")}}
+  for(x in obj){
+    console.log(x); //ozellik, ozellik2, ozellik3 -> Objenin anahtarlarını okuduk. NOT -> metot içindeki console.log komutu çalışmaz. 
+  }
+  //Şu örneğe de bakınız.
+  for(x in obj){
+    console.log(obj[x]); //deger, deger2, f (){console.log("Deneme yazısı...")} -> NOT -> metot içindeki console.log komutu çalışmaz ancak metota(fonksiyona) bu şekilde ulaşabiliriz.
+  }
+
+  //String'lerin karakterlerini okumak
+  var sehir="İzmir";
+  for(x in sehir){
+    console.log(sehir[x]);
+  }
+]
+
+
+
+
+
+-Deyimler-
+break : Döngüyü sonlandırmak için kullanılır.
+continue : Döngü içinde belirli bir koşulun kontrolüyle bir sonraki döngü adımına gidilmesini gerçekleştirir.
+return : Fonksiyonu sonlandırmak için kullanılır. 
+{
+  #"return deger;" şeklinde bir kullanımı da vardır. Fonksiyonun çağrıldığı yere değer döndürmek için kullanılır.
+  #"return; veya return değer;" den sonra yazılan hiçbir komut çalıştırılmaz.
+}
+
+
+
+
+
+-İşlem Önceliği-
+#Sırasıyla parantezler, fonksiyonlar, aritmetik işlemler, karşılaştırma işlemleri, mantıksal işlemler ve şart işlemleri.
+
+
+
+
+
+-Fonksiyonlar(Functions)-
+[
+  //Fonksiyon tanımlama yöntemleri
+  //1.
+  function fonksiyon1(){
+
+  }
+
+  //2.  
+  var fonksiyon2 = function(){
+
+  }
+
+  //3. Immediately Invoked Function Expression(IIFE Fonksiyon) -> Tanımlandığı yerde çalışır.
+  (function(){
+
+  })();
+]
+
+#İç içe fonksiyon tanımlayabilirsiniz.
+#Fonksiyonlar return deyimi ile geriye değer döndürebilir.
+[
+  function kare(x){
+    return x*x;
+  }
+  function kup(x){
+    return x*x*x;
+  }
+
+  var sayi = 2;
+  sayi = kup(kare(sayi));
+  console.log(sayi); //64
+]
+
+#Fonksiyonları tanımlarken parametre belirtilmesek de çağırırken parametre gönderebiliriz.
+[
+  function sayilar(){
+    for(sayi in arguments)
+    {
+      console.log(arguments[sayi]); //10, 20, 30
+    }
+    console.log(arguments.length); //3 -> Bu dizinin length özelliği ile parametre sayısını öğrenebiliyoruz.
+  }
+  sayilar(10, 20, 30); //Parametreler arguments dizisine aktarılır. Bu diziye fonksiyon içinden erişebilirsiniz.
+]
+
+#Parametrelere varsayılan değerler vermek:
+[
+  function Ogrenci(name="Belirtilmemiş", age="Belirtilmemiş"){
+    console.log(name,age);
+  }
+  Ogrenci("Eren"); //Eren Belirtilmemiş
+  Ogrenci(); //Belirtilmemiş Belirtilmemiş
+  Ogrenci("Eren", 27); //Eren 26
+]
+
+#Bir fonksiyon parantezsiz çağrılırsa fonksiyonun kendisi döner : 
+[
+  function Test(){
+    console.log("Test")
+  }
+
+  var test = Test;
+  console.log(test); //function Test(){console.log("Test")}
+  test(); //Test
+]
+
+#Hazır fonksiyonlar(Global Functions)
+[
+  //Daha önce gördüğümüz String, Number, parseFloat ve parseInt fonksiyonları birer global fonksiyondur.
+
+  //encodeURI, decodeURI, encodeURIComponent, decodeURIComponent fonksiyonları çok sık kullanılmadığı için bilgi vermeyeceğim.
+  
+  //isNaN() : Parametre olarak verilen değer sayı değilse true, sayı ise false döner.
+  console.log(isNaN(457)); //false
+  console.log(isNaN("-1")); //false
+  console.log(isNaN(0)); //false
+  console.log(isNaN("Hello")); //true
+  console.log(isNaN("2005/12/12")); //true
+  console.log(isNaN(NaN)); //true
+  console.log(isNaN(Infinity)); //false
+  console.log(isNaN(-Infinity)); //false
+
+  //eval() : Parametre olarak verilen string ifadeyi Javascript koduymuş gibi çalıştırır.
+  console.log(eval("2 + 2")); //10
+
+  var x = 10;
+  console.log(eval("x + 10")); //20 
+
+  //Global özellikler : NaN, Infinity
+  
+  //NaN : Değerin sayı olmadığını belirten bir özelliktir.
+  console.log(NaN); //NaN -> Özelliğin değeri NaN'dır.
+  console.log(typeof NaN); //number -> Tipi number'dır.
+  
+  //Matematiksel işlemlerde kullanıldığında sonuç yine NaN olur.
+  var x = 100 / "Apple";
+  console.log(x); //NaN
+  console.log(x + 10); //NaN
+
+  //Infinity : Infinity(veya -Infinity) Javascript'te pozitif veya negatif sayı sınırının aşıldığını ifade eden bir özelliktir.
+  //Sınırı aşan bir sayı Infinity(veya -Infinity) ile gösterilir.
+  console.log(Infinity); //Infinity -> Özelliğin değeri Infinity'dir.
+  console.log(typeof Infinity); //number -> Tipi number'dır.
+
+  //Ayrıca 0'a bölme durumunda da Infinity değeri dönmektedir.
+  console.log(2 / 0); //Infinity
+  console.log(-10 / 0); //-Infinity
+]
+
+Bilgi : Javascript'teki pozitif ve negatif sayı sınırını görmek için Number objesinin MAX_VALUE ve MIN_VALUE özelliklerini kullanabilirsiniz.
+[
+  console.log(Number.MAX_VALUE); //1.79e+308
+  console.log(Number.MIN_VALUE); //5e-324
+
+  //Daha büyük ya da daha küçük bir sayı kullanıp sınırı aştığımızda :
+  console.log(1.79e+308); //1.79e+308
+  console.log(1.79e+309); //Infinity
+]
+
+Bilgi : NaN ve Infinity değer olarak kullanılabilir.
+[
+  var x = NaN;
+  var y = Infinity;
+
+  console.log(x); //NaN
+  console.log(y); //Infinity
+]
+
+NOT : Javascript kapanışları konusuna bak -> https://www.w3schools.com/js/js_function_closures.asp :)
+
+
+
+
+
+-Diziler(Arrays)-
+[
+  //Dizi tanımlama yöntemleri
+  //1.Condensed Dizi
+  let arr1 = new Array("a", "b", "c", 1, 2, 3, true, false, function(){}, {harf: "a", rakam: 0});
+  
+  //2.Literal Dizi
+  let arr2 = [1, 2, 3];
+
+  //3.Regular Dizi
+  let arr3 = new Array();
+  arr3[0] = "Q";
+  arr3[1] = "W";
+  arr3[5] = "E"; //Hata vermez ancak 1. index'den 5'e atladığımız için 2, 3 ve 4. indexler otomatikmen boş olarak tanımlanır. Bu yüzden dizi 6 elemanlı olarak görünür.
+  console.log(arr3.length); //6
+  console.log(arr3) //["Q", "W", empty x 3, "E"]
+]
+
+#Dizi içinde dizi oluşturabilirsiniz:
+[
+  let arr1 = Array(new Array(1, 2, 3), new Array("a", "b", "c"));
+  
+  let arr2 = [[1, 2, 3], ["a", "b", "c"]];
+  
+  let arr3 = new Array();
+  arr3[0] = new Array(1, 2, 3);
+  arr3[1] = new Array("a", "b", "c");
+]
+
+#Array sınıfının bazı özellik ve metotları :
+[
+  //Özellik ve metotları konsol penceresinde görmek için :
+  console.log(new Array()); //Array sınıfının prototipine bak.
+
+  //length : Dizinin eleman sayısını almak ya da değiştirmek için kullanılır.
+  var a = [1, 2, 3];
+  console.log(a); //[1, 2, 3]
+  console.log(a.length); //3
+  a.length = 1;
+  console.log(a); //[1]
+  console.log(a.length); //1
+
+  //constructor : Bir objenin constructor'unu döndürür.
+  var dizi = new Array();
+  console.log(dizi.constructor); //ƒ Array() { [native code] }
+  var ArrayYeni = dizi.constructor; -> Array sınıfının constructor'ını bu değişkene aktardık.
+  console.log(new Array()); //[]
+  console.log(new ArrayYeni()); //[] -> Artık Array yerine ArrayYeni sınıfını kullanabiliriz :)
+
+  //prototype : Bir class'ın prototipini almak ya da prototipine özellik-metot eklemek için kullanılır.
+  console.log(Array.prototype); //Array sınıfının prototipi konsola yazılır.
+  Array.prototype.upperCase = function() { //Array sınıfının prototipine metot ekledik. Bu metot dizi elemanlarının harflerini büyütür.
+    for (i = 0; i < this.length; i++) {
+      this[i] = this[i].toUpperCase();
+    }
+  };
+  console.log(["a", "B", "c", "d"].upperCase());
+
+  //push : Dizinin sonuna eleman eklemek için kullanılır.
+  var sayilar = [1, 2, 3];
+  sayilar.push(4, 5, 6);
+  console.log(sayilar); //1, 2, 3, 4, 5, 6
+
+  //unshift : Dizinin başına eleman eklemek için kullanılır. Kullanımı push fonksiyonu ile aynıdır.
+
+  //pop : Dizinin son elemanını verir ve bu elemanı dizi içinden siler.
+  var dizi = [1, 2, 3];
+  console.log(dizi.pop()); //3
+  console.log(dizi);  //1, 2
+
+  //shift : Dizinin ilk elemanını verir ve bu elemanı dizi içinden siler. Kullanımı pop fonksiyonu ile aynıdır.
+
+  //toString : Dizi elemanlarını string olarak döndürür.
+  var arr1 = [1, 2, 3];
+  var arr2 = arr1.toString();
+  console.log(arr2); //1,2,3
+  console.log(typeof arr2); //string
+
+  //concat : Dizileri birleştirip geri döndürür.
+  var arr1 = [1, 2, 3];
+  var arr2 = [4, 5, 6];
+  var arr3 = [7, 8, 9];
+  console.log(arr1.concat(arr2, arr3)); //1, 2, 3, 4, 5, 6, 7, 8, 9
+
+  //join : Parametre olarak verilen değeri dizi elemanları arasına ekler ve string olarak döndürür. Parametresiz kullanımda elemanlar arasına virgül eklenir.
+  var arr1 = [1, 2, 3];
+  console.log(arr1.join("+")); //1+2+3
+  console.log(arr1.join("qwe")); //1qwe2qwe3
+
+  //reverse : Dizi elemanlarının sırasını ters çevirir.
+  var arr1 = [1, 2, 3];
+  arr1.reverse();
+  console.log(arr1); //3, 2, 1  
+
+  //indexOf : Parametre olarak verilen değeri dizi içerisinde arar, bulursa ilk geçtiği yerin indeks numarasını bulamazsa -1 döndürür.
+  //2. parametrenin kullanımı isteğe bağlıdır, başlangıç indeksini belirtmek için kullanılır.
+  var sehirler = ["Edirne", "İstanbul", "İzmir", "Denizli", "Edirne"];
+  console.log(sehirler.indexOf("Edirne")); //0
+  console.log(sehirler.indexOf("Edirne", 1)); //4
+  console.log(sehirler.indexOf("Eskişehir")); //-1
+
+  //lastIndexOf : Parametre olarak verilen değeri dizi içerisinde arar, burulsa son geçtiği yerin indeks numarasını bulamazsa -1 döndürür.
+  //2. parametrenin kullanımı isteğe bağlıdır, bitiş indeksini belirtmek için kullanılır.
+  var sehirler2 = ["Edirne", "Edirne", "İzmir", "Denizli", "Edirne"];
+  console.log(sehirler2.lastIndexOf("Edirne")); //4
+  console.log(sehirler2.lastIndexOf("Edirne", 3)); //1
+  console.log(sehirler2.lastIndexOf("Edirne", 4)) //4
+
+  //slice : Dizinin bir bölümünü(ya da tamamını) kopyalar ve yeni bir dizi olarak döndürür. İlk parametre başlangıç, ikinci parametre bitiş indeksidir. Bitiş
+  //indeksi belirtilmezse dizinin sonuna kadar seçilir. Bitiş indeksi negatif değer aldığında dizi sonundan bitiş indeksi kadar eleman seçilmez.
+  var numbers = [1, 2, 3, 4, 5, 6];
+  console.log(numbers.slice(1)); //2, 3, 4, 5, 6
+  console.log(numbers.slice(1, 4)); //2, 3, 4
+  console.log(numbers.slice(0, -2)); //1, 2, 3, 4
+  console.log(numbers) //1, 2, 3, 4, 5, 6
+
+  //splice : Dizi içinden eleman silmek ya da yeni elemanlar eklemek için kullanılır..
+  //Bazı elemanlar silinirken yenileri eklendi : 
+  let dizi5 = [1, 2, 3, 4, 5, 6];
+  let silinenler = dizi5.splice(2, 2, "A", "B", "C"); //splice(başlangıç indeksi, çıkarılacak eleman sayısı, eklenecek elemanlar...)
+  console.log(silinenler); //3, 4
+  console.log(dizi5); //1, 2, "A", "B", "C", 5, 6
+
+  //Sadece A, B, C değerlerini eklendi. Silme işlemi yapılmadı : 
+  var sayilar = [1, 2, 3];
+  sayilar.splice(1, 0, "A", "B", "C");
+  console.log(sayilar); //1, "A", "B", "C", 2, 3
+
+  //Dizi içinden bir eleman sildik. Bu işlem sonucunda ilgili index boş değer içermez elemanlar kaydırılır ve 1. index'de silinen A yerine B değeri bulunur.
+  sayilar.splice(1, 1);
+  console.log(sayilar); //1, "B", "C", 2, 3
+
+  //map : Dizi elemanlarını belirtilen bir fonksiyondan geçirerek dizi halinde geri döndürür. NOT -> Orjinal dizi üzerinde değişiklik yapılmaz.
+  let dizi6 = [2, 4, 6, 8];
+  console.log(dizi6.map(function(item){  //4, 16, 36, 64
+	return item * item;
+  }));
+  let dizi7 = [3, 6, 9, 12];
+  console.log(dizi7.map(function(item, index, arr){ //9, 36, 81, 144 -> 2 ile 3. parametrelerin kullanımı isteğe bağlıdır.
+    return arr[index] * item;
+  }));
+  
+  let deneme = [1, 2, 3];
+  let sonuc = deneme.map(function(item){
+    return item * item + this;
+  },"Eren"); //-> fonksiyon blogundan sonra kendi parametremizi gönderebiliyoruz ve bu değere fonksiyon içerisinden this ile ulaşıyoruz. Parametre göndermezsek this, undefined olur.
+  console.log(sonuc); //["1Eren", "4Eren", "9Eren"]
+
+  //filter : Dizi elemanlarını filtreleyip dizi halinde geri döndürür. Orjinal dizi üzerinde değişiklik yapılmaz. Map fonksiyonu gibi 2 ya da 3 parametreli(index, arr)
+  //kullanabilirsiniz. Fonksiyon blogundan sonra kendi parametrenizi de gönderebilirsiniz(this ile erişin).
+  let dizi8 = [1, 2, 3, 4];
+  console.log(dizi8.filter(function(item){ //1, 2
+    return item < 3;
+  }));
+
+  //every : Dizi elemanlarını belirli bir kontrolden geçirir, tüm elemanlar koşulu sağlıyorsa true aksi halde false değerini döndürür. map ve filter gibi 2 ya da 3
+  //parametreli(index, arr) kullanılabilir. Fonksiyon blogundan sonra kendi parametrenizi gönderebilirsiniz.
+  let dizi9 = [1, 2, 3, 4];
+  console.log(dizi9.every(function(item){ //true -> Çünkü tem elemanlar koşulu sağlıyor.
+    return item <= 4;
+  }));
+  console.log(dizi9.every(function(item){ //false -> Çünkü 3'ten büyük eleman var.
+    return item <= 3;
+  }));
+
+  //some : every gibi çalışır fakat elemanlardan en az biri koşulu sağlıyorsa true aksi halde false döndürür. 2 ya da 3 parametreli kullanılabilir.
+  //Fonksiyon blogundan sonra kendi parametrenizi gönderebilirsiniz.
+  let dizi10 = [1, 2, 3, 4];
+  console.log(dizi10.some(function(item){ //true -> Çünkü 2'den küçük eleman var.
+    return item < 2;
+  }));
+  let dizi10 = [1, 2, 3, 4];
+  console.log(dizi10.some(function(item){ //false
+    return item > 4;
+  }));
+  
+  //sort : Elemanları sıralamak için kullanılır.
+  var arr5 = ["C","B","D","A","E"];
+  arr5.sort();
+  console.log(arr5); //A, B, C, D, E
+
+  var arr6=[10, 5, 4, 6, 15, 2, 95, 23]; //En soldaki basamağa göre sıralama yapar.
+  arr6.sort();
+  console.log(arr6); //10,15,2,23,4,5,6,95 
+
+  var arr7=["AA", "BA", "AC", "BC", "BB"]; 
+  arr7.sort();
+  console.log(arr7); //AA,AC,BA,BB,BC
+
+  //sort ile küçükten büyüğe sıralama algoritması
+  var arr8 = [5, 23, 4, 100, 12];
+  arr8.sort(function(x, y){
+    return x-y;
+  });
+  console.log(arr8);  //4, 5, 12, 23, 100
+
+  //sort ile büyükten küçüğe sıralama algoritması
+  var arr9 = [5, 23, 4, 100, 12, -10, 2]; //-> negatif sayı ekledik
+  arr9.sort(function(x, y){
+    return y-x;
+  });
+  console.log(arr9);  //100, 23, 12, 5, 4,  2, -10
+]
+
+#forEach fonksiyonu : Dizideki her eleman için bir fonksiyon çalıştırır.
+[
+  var arr = [10, 20, 30, 40];
+  arr.forEach(function(item){ //10 20 30 40 değerleri sırayla konsola yazılır.
+    console.log(item);
+  });
+
+  var arr2 = [1, 2, 3, 4];
+  
+  function x10(item, index, arr){
+    arr[index] = item * 10;
+  }
+
+  arr.forEach(x10);
+  arr2.forEach(x10);
+
+  console.log(arr); //100, 200, 300, 400
+  console.log(arr2); //10, 20, 30, 40
+
+  //Fonksiyon blogundan sonra kendi parametremizi de gönderebiliyoruz.
+  var sayilar = [1, 2, 3, 4];
+  sayilar.forEach(function(item){
+    console.log(item + this); //1Eren, 2Eren, 3Eren, 4Eren
+  }, "Eren");
+]
+
+
+
+
+
+-Hata Yönetimi-
+try{
+  //Hata verebilecek kodlar buraya yazılır.
+}
+catch(err){
+  //Hata meydana gelirse catch blogu çalışır.
+  //Browser tarafından bir Error objesi fırlatılır. Bu objeyi catch bloguna verdiğimiz parametre(err) ile yakalıyoruz.
+  //Error objesi name ve age adında iki özelliğe sahiptir. Bu özellikler bize oluşan hata hakkında bilgi verir.
+}
+finally{
+  //Hata olsun olmasın çalışması istenen kodlar varsa buraya yazılacak.
+}
+
+#Örnek :
+[
+try{
+  var x = y + 10; //y adında bir değişken yok. Bu satır try blogu içinde olmasaydı Error objesi browser tarafından yakalanıp konsola yazılırdı.
+                  //Ama artık bizim kontrolümüzde. Browser bu hatadan etkilenmeyecek.
+}
+catch(err){
+  alert(err); //ReferenceError: y is not defined
+  alert(err.name); //ReferenceError
+  alert(err.message); //y is not defined
+}
+]
+
+#Bir Error objesinin name özelliği gerçekleşen hataya göre şu 5 farklı değerden birini alır : RangeError, ReferenceError, SyntaxError, TypeError, URIError
+Yani Javascript'te 5 tür hata vardır diyebiliriz. Örnekler için : "https://www.w3schools.com/jsref/prop_error_name.asp"
+
+#Error objesinin message özelliği gerçekleşen hatanın açıklamasını gösteren bir string'dir. Açıklama browser'a bağlı olarak değişir.
+
+#Bir Error objesi oluşturup bunu throw anahtar kelimesiyle fırlatabiliriz : 
+[
+  var benimHatam = new Error();
+  benimHatam.name = "hata";
+  benimHatam.message = "deneme";
+
+  try{
+    throw benimHatam;
+  }
+  catch(err){
+    console.log(err); //hata: deneme
+    console.log(err.name); //hata
+    console.log(err.message); //deneme
+  }
+]
+
+
+
+
+
+-ECMAScript 6+-
+#Arrow Functions [Edge+] :
+[
+  var test = function(){
+    console.log("Merhaba");
+  }
+
+  //Arrow Function
+  var test = () => {
+    console.log("Merhaba");
+  }
+
+  //Fonksiyonun tek parametresi varsa parantez kullanılmayabilir.
+  var test = name => {
+    console.log("Merhaba", name);
+  }
+  test("Eren"); //Merhaba Eren
+
+  //Fonksiyon içinde tek bir işlem yapılıyorsa süslü parantezlere de gerek yoktur.
+  var test = (firstName, lastName) => console.log("Merhaba", firstName, lastName);
+
+  //Fonksiyon tek bir işlem yapıyorsa ve return ile geriye değer döndürüyorsa return'e de gerek yoktur.
+  var cube = x => x * x * x;
+]
+
+#ES6+ OOP [Edge+] :
+[
+  class Employee {
+    constructor(name, age, salary){
+      this.name = name;
+      this.age = age;
+      this.salary = salary;
+    }
+    showInfos(){ //Bu metot objenin prototipi içinde oluşturulur.
+      console.log("İsim : "+ this.name +" Yaş : "+ this.age +" Maaş : "+ this.salary);
+    }
+    static msg(){ //static bir metottur. Employee.msg() şeklinde kullanabilirsiniz. NOT : obje üzerinden kullanılamaz.
+      console.log("Hello World!");
+    }
+  }
+
+  //Kalıtım
+  class Person{  //SuperClass, BaseClass
+    constructor(name, age){
+      this.name = name;
+      this.age = age;
+    }
+    showInfos(){
+      console.log("İsim : "+ this.name +" Yaş : "+ this.age);
+    }
+  }
+  class Employee extends Person{ //SubClass, ChildClass, DerivedClass
+    constructor(name, age, salary){
+      super(name, age); //super anahtar kelimesi ile base class'ın constructor'unu kullanıyoruz.
+      this.salary = salary;
+    }
+    showInfos(){
+      console.log("İsim : "+ this.name +" Yaş : "+ this.age +" Maaş : "+ this.salary); //showInfos() metodunu override ettik.
+    }
+  } //Bu class içinde base class'daki bir metodu kullanmak isterseniz : super.metotAdi()
+
+  //get ve set anahtar kelimeleri
+  class Student{
+    constructor(name, age){
+      this.name = name;
+      this.age = age;
+    }
+    get getName(){
+      return this.name;
+    }
+    set setName(x){
+      this.name = x;
+    }
+  }
+]
+
+#Destructing [Edge 14+]
+[
+  //Dizilerden değişkenlere değer aktarmak.
+  var number1, number2;
+  var numbers = [100, 200, 300, 400];
+  [number1, number2] = numbers;
+  console.log(number1, number2); //100 200
+
+  //Bu işlem, değişkenlerin tanımlandığı satırda da yapılabilir.
+  var [number3, number4] = numbers;
+
+  //Aynı yöntem objeler üzerinde de kullanılabilir.
+  var numbers = {
+    a: 10,
+    b: 20,
+    c: 30,
+    d: 40
+  }
+  var {a, c} = numbers; //Değişken adlarının aynı olması gerekmekte. Farklı isim vermek istiyorsanız bir sonraki örneğe bakınız. 
+  console.log(a, c); //10 30
+
+  //ÖR 2:
+  var {b:number1, c:number2, d:number3} = numbers;
+  console.log(number1, number2, number3); //20 30 40
+]
+
+#Spread Operatör [Edge+]
+[
+  //Yaptığı işlem : "langs[0], langs[1], langs[2], langs[3]" şeklinde dizinin her elemanını virgül ile ayırıp almak. 
+  var langs = ["C#", "Java", "Python", "C++"];
+  console.log(...langs); //C# Java Python C++
+
+  //ÖR 2:
+  var langs2 = ["PHP", "ASP", ...langs]
+  console.log(...langs2); //PHP ASP C# Java Python C++
+
+  //ÖR 3:
+  var topla = (a, b, c) => console.log(a + b + c);
+  var sayilar = [10, 20, 30];
+  topla(...sayilar); //60
+]
+
+#"for of" Döngüsü : (for of'u objeler üzerinde kullanamıyoruz.) [Edge 17+]
+[
+  var name = "Eren";
+  for(var val of name){
+    console.log(val); //E, r, e, n : Burada "for in" kullanılsaydı karakterlerin index numaraları konsola yazılırdı. Yani çıktımız
+  }                   //0, 1, 2, 3 şeklinde olurdu.
+
+  //Dizinin elemanları üzerinde gezinmek
+  var langs = ["C#", "Python", "Java"];
+    for(var val of langs){
+      console.log(val); //C#, Python, Java
+    }
+]
+
+#Template Literal [Edge+]
+[
+  var name = "Eren Satı";
+  var age = 26;
+  var city = "Kocaeli";
+
+  var infos = "İsim : "+ name +"\nYaş : "+ age +"\nŞehir : "+ city;
+  console.log(infos);
+
+  //Aşağıdaki örneğin yukarıdakinden hiçbir farkı yoktur.
+
+  var infos2 = `İsim : ${name}\nYaş : ${age}\nŞehir : ${city}`;
+  console.log(infos2);
+
+  //Template Literal içerisinde Javascript kodları kullanabilirsiniz.
+  var a = () => "Merhaba";
+  var html = `
+    <ul>
+      <li>${name}</li>
+      <li>${age}</li>
+      <li>${city}</li>
+      <li>${10 / 4}</li>
+      <li>${a()}</li>
+    </ul>
+  `;
+  document.write(html);
+  
+  //NOT : `` : [Altr Gr+,,]
+]
+
+
+
+
+
+-OOP(Object Oriented Programming)-
+Javascript'te OOP yapısı kullanılırken fonksiyonlardan yararlanılır.
+
+#Javascript'te obje oluşturmak için üç farklı yöntem vardır :
+
+1.Basit bir obje oluşturmak istiyorsanız Object Literal sözdizimini kullanabilirsiniz.
+[
+  var obje1 = {
+    name : "Eren",
+    age : 26,
+    showInfos : function(){
+      console.log(this.name + "-" + this.age);
+    }
+  }
+  obje1.gender = "Male"; //Yeni bir özellik ya da metot eklenebilir.
+  obje1.name = "Enes"; //Var olan özellik ve metotların değerleri değiştirilebilir.
+  delete obje1.age; //Objenin özellik ve metotları delete operatörü ile silinebilir.
+  delete obje1.showInfos;
+
+  //get ve set anahtar kelimeleri
+  var student = {
+    name: "Eren",
+    age: 27,
+    get getName(){
+        return this.name;
+    },
+    set setName(x){
+        this.name = x; 
+    }
+  }
+]
+
+2.Object sınıfının örneğini almak. Aşağıdaki örneğin yukarıdakinden hiçbir farkı yoktur.
+[
+  var obje2 = new Object();
+  obje2.name = "Eren";
+  obje2.age = 26;
+]
+
+3.Objeler bir constructor ile de oluşturulabilmekte. Bunun için fonksiyonlardan yararlanıyoruz. Fonksiyonlar bize daha karmaşık obje yapıları 
+üretebilme imkanı sağlamaktadır.
+[
+  function Student(name, age){
+    this.name = name;
+    this.age = age;
+    this.city = "Edirne"; //Özelliklere default değerler verebiliyoruz.
+  }
+
+  var student1 = new Student("Eren", 26);
+  student1.number = 2345; //Bu yeni özellik sadece student1 objesine eklenir.
+]
+
+#Javascript'te tüm objeler Object sınıfının mirasçısıdır ve tüm objelerin prototype adında bir özelliği bulunmaktadır(Object sınıfı da dahil).
+Kendi objelerimizin prototipi içerisinde başlangıçta herhangi bir metot ve property yoktur. Ancak Object sınıfının prototipi geliştiriciler
+tarafından tanımlanan bazı özellik ve metotlarla birlikte gelmektedir. Objelerimizin prototipleri, Object sınıfının prototipini de içerisinde
+barındırmaktadır çünkü Javascript'te tüm objeler Object sınıfından kalıtılmıştır. Dolayısıyla Object sınıfı kaynaklı prototipin içindeki
+özellik ve metotlar kendi objelerimiz için de kullanılabilir durumdadır hatta bu metot ve özellikleri sınıflarımız içinde override edebilmekteyiz.
+[
+  //Object sınıfı kaynaklı toString() metodunun override edilmesi
+  function Student(name, age){
+    this.name = name;
+    this.age = age;
+    this.toString = function(){
+      console.log("deneme yazısı...")
+    }
+  }
+
+  var student = new Student("Eren", 26);
+  student.toString(); //deneme yazısı...
+  //obje içerisi > class'ın prototipi > Object sınıfının prototipi : Bu sıralamaya göre toString() metodu ilk olarak nerede tanımlanmışsa orada
+  //çalıştırılır.
+]
+
+#Prototip içerisinde özellik ve metot tanımlamak : 
+[
+  function Employee(name, age){
+    this.name  = name;
+    this.age = age;
+  }
+  Employee.prototype.showInfos = function(){
+    console.log("İsim : " + this.name + "Yaş : " + this.age);
+  }
+
+  var emp1 = new Employee("Eren", 26);
+  emp1.showInfos();
+
+  //Bu metot class içinde tanımlansaydı her obje için bellekte 1 kopyası oluşturulacaktı. Şuan bellekte sadece 1 örneği bulunuyor ve tüm objeler ortak olarak
+  //onu kullanabiliyor.
+]
+
+#Bir objenin prototipini başka bir objenin içeriğinden oluşturmak :
+[
+  var obje1 = {
+    test1:function(){
+      console.log("test1");
+    },
+    test2:function(){
+      console.log("test2");
+    }
+  }
+
+  var obje2 = Object.create(obje1);
+  obje2.name = "Mustafa";
+  obje2.age = 25;
+  console.log(obje2); //Resim7.png'ye bakınız.
+]
+
+#Bir objenin prototipinin başka bir objenin prototipini göstermesi :
+[
+  function Person(){
+
+  }
+  Person.prototype.test1 = function(){
+    console.log("Test 1");
+  }
+  Person.prototype.test2 = function(){
+    console.log("Test 2");
+  }
+
+  function Employee(name, age){
+    this.name = name;
+    this.age = age;
+  }
+
+  Employee.prototype = Object.create(Person.prototype);
+
+  const emp = new Employee("Mustafa", 25);
+
+  console.log(emp); //Örneğin çıktısı için : Resim8.png
+]
+
+#call() ve apply() fonksiyonları :
+[
+  var obj1 = {
+    number1: 10,
+    number2: 20
+  }
+  var obj2 = {
+    number1: 30,
+    number2: 40
+  }
+  function Topla(number3, number4){
+    console.log(this.number1 + this.number2 + number3 + number4); //this anahtar kelimesi normalde window objesi içindeki number1(ve number2) değişkenini göstermekte
+  }                                                               //ancak apply ve call sayesinde artık obj1 ve obj2 objelerini gösteriyor.
+
+  Topla.call(obj1, 100, 200); //330
+  Topla.call(obj2, 100, 200); //370
+
+  Topla.apply(obj1, [100, 200]); //330
+  Topla.apply(obj2, [100, 200]); //370
+
+  //apply'nin call'dan farkı parametreleri dizi değişken olarak alması
+]
+
+#bind() fonksiyonu : Fonksiyonun bir kopyasını oluşturup parametre olarak verilen objeyle kullanılmasını sağlar.
+[
+  var obj1 = {
+    number1: 10,
+    number2: 20
+  }
+  var obj2 = {
+    number1: 30,
+    number2: 40
+  }
+
+  function Topla(number3, number4){
+    console.log(this.number1 + this.number2 + number3 + number4);
+  }
+
+  var copyFunction1 = Topla.bind(obj1);
+  var copyFunction2 = Topla.bind(obj2);
+
+  copyFunction1(100, 200); //330
+  copyFunction2(100, 200); //370
+]
+
+
+
+
+
+-Javascript Objeleri-
+#String
+[
+
+  //Özellikler : prototype, constructor, length
+  //length : String ifadenin uzunluğunu verir.
+  console.log("EREN".length); //4
+
+  //Metotlar
+  //charAt(indeks) : string ifade içinde belirtilen konumdaki karakteri verir. İlgili index yoksa boş string döner.
+  var str = "Javascript";
+  console.log(str.charAt(str.length-1)); //t
+
+  //charCodeAt(indeks) : string ifade içinde belirtilen konumdaki karakterin Unicode değerini verir. Büyük küçük harf duyarlılığı vardır.
+  console.log("Ahmet".charCodeAt(0)); //65
+
+  //string1.concat(string2, string3, ..., stringX) : string ifadeleri birleştirip geri döndürür.
+  console.log("TP-".concat("LINK")); //TP-LINK
+
+  //String.fromCharCode() : Girilen Unicode değerinin karakterini döndürür.
+  console.log(String.fromCharCode(84, 82, 65, 75, 89, 65)); //TRAKYA
+
+  //indexOf() : Parametre olarak verilen değeri string ifadenin içinde arar, bulursa ilk geçtiği yerin indeks numarasını bulamazsa -1 döndürür.
+  //2. paramterenin kullanımı isteğe bağlıdır başlangıç indeksini belirtmek için kullanılır.
+  var bilgi = "EnglisToh Grammar Today";
+  console.log(bilgi.indexOf("To")); //6
+  console.log(bilgi.indexOf("To",6)); //6
+  console.log(bilgi.indexOf("To",7)); //18
+  console.log(bilgi.indexOf("Tod")); //18
+  console.log(bilgi.indexOf("İsp")) //-1
+  
+  //lastIndexOf() : Parametre olarak verilen değeri string ifadenin içinde arar, bulursa son geçtiği yerin indeks numarasını bulamazsa -1 döndürür.
+  //2. paramterenin kullanımı isteğe bağlıdır bitiş indeksini belirtmek için kullanılır.
+
+  console.log(bilgi.lastIndexOf("To")); //18
+  console.log(bilgi.lastIndexOf("To",18)); //18
+  console.log(bilgi.lastIndexOf("To",17)); //6
+
+  //replace() : String ifade içinde değişiklik yapıp geri döndürür.
+  var soru = "C# mı Java mı?";
+  console.log(soru.replace("mı", "mi")); //C# mi Java mı? -> Değişiklik sadece ilk "mı" için yapılır.
+  console.log(soru); //C# mı Java mı? -> orjinal string değişiklikten etkilenmez.
+
+  //toLowerCase() : harfleri küçültüp geri döndürür.
+  //toUpperCase() : harfleri büyütüp geri döndürür.
+  console.log("insan".toUpperCase()); //INSAN -> i harfi I'ya dönüştü.
+  console.log("IĞDIR".toLowerCase()); //iğdir -> I harfi i'ye dönüştü.
+
+  //toLocaleLowerCase(), toLocaleUpperCase() : Tarayıcının diline göre büyük-küçük harf dönüşümü yapar.
+  console.log("insan".toLocaleUpperCase()); //İNSAN
+  console.log("IĞDIR".toLocaleLowerCase()); //ığdır
+
+  //substr() : String ifade içinde belirtilen konumdan belli sayıda karakteri getirir.
+  var soz = "Dokuz at bir kazığa bağlanmaz.";
+  console.log(soz.substr(6, 2)); //at
+  console.log(soz.substr(1)); //okuz at bir kazığa bağlanmaz.
+  console.log(soz.substr(-3)); //az.
+  console.log(soz.substr(-4, 2)); //ma
+
+  //substring() : String ifade içinde belirtilen iki konum arasındaki karakterleri getirir.
+  var sifre = "QWERTYUIOP";
+  console.log(sifre.substring(0, 5)); //QWERT
+  console.log(sifre.substring(2)); //ERTYUIOP
+
+  //split() : String ifadeyi bölerek sonucu dizi olarak döndürür. İlk parametre ayırıcı karakterdir. İkinci parametre ile dizinin eleman sayısı ayarlanabilir.
+  var telefon = "0553 029 77 85";
+  console.log(telefon.split(" ")); //0553, 029, 77, 85
+  console.log(telefon.split(" ", 3)); //0553, 029, 77
+  console.log(telefon.split("", 4)); //0, 5, 5, 3
+
+  var web = "www.erensati.com";
+  console.log(web.split(".")); //www, erensati, com
+
+  //toString(), valueOf() : String'i döndürür.
+]
+
+#Number
+[
+  //Özellikler : prototype, constructor, MAX_VALUE, MIN_VALUE, NaN
+  //MAX_VALUE : Mümkün olan en büyük sayıyı döndürür. MAX_VALUE'dan büyük sayılar Infinity ile ifade edilir.
+  //MIN_VALUE : Mümkün olan en küçük sayıyı döndürür. MIN_VALUE'dan küçük sayılar -Infinity ile ifade edilir.
+  console.log(Number.MAX_VALUE); //1.79e+308
+  console.log(Number.MIN_VALUE); //5e-324
+
+  //NaN
+  console.log(Number.NaN); //NaN -> Global bir özellik olan NaN ile aynıdır.
+
+  //Metotlar
+  //toFixed() : Virgülden sonraki basamak sayısını ayarlayıp string olarak geri döndürür.
+  var sayi = 367.32342;
+  console.log(sayi.toFixed(1)); //367.3
+  console.log(sayi.toFixed(2)); //367.32
+  console.log(sayi.toFixed(3)); //367.323
+
+  //toString() : Sayıyı string olarak döndürür. Parametre kullanımı isteğe bağlıdır sayı tabanını ayarlamak için kullanılır. Parametre 2 ile 36 aralığında bir tamsayı olmalıdır.
+  var sayi = 100;
+  console.log(sayi.toString()); //100 -> Taban 10
+  console.log(sayi.toString(2)); //1100100 -> Binary
+  console.log(sayi.toString(8)); //144 -> Octal
+  console.log(sayi.toString(16)); //64 -> Hexadecimal
+
+  //valueOf() : Sayıyı döndürür.
+]
+
+#Error
+[
+  //Özellikler : name, message -> Hata Yönetimi başlığı altında görmüştük.
+]
+
+#Boolean
+[
+  //Özellikler : constructor, prototype
+ 
+  //Metotlar : toString(), valueOf()
+]
+
+#Math : Math objesinin constructor'ı olmadığı için new anahtar kelimesiyle obje oluşturulamaz.
+[
+  //Özellikler
+  //E : Eular sayısını döndürür.
+  console.log(Math.E); //2.718281828459045
+
+  //PI : PI sayısını döndürür.
+  console.log(Math.PI); //3.141592653589793
+
+  //LN2 : 2'nin logaritmasını döndürür.
+  console.log(Math.LN2); //0.6931471805599453
+
+  //LN10 : 10'un logaritmasını döndürür.
+  console.log(Math.LN10); //2.302585092994046
+
+  //SQRT1_2 : 1/2'nin karekökünü döndürür.
+  console.log(Math.SQRT1_2); //0.7071067811865476
+
+  //SQRT2 : 2'nin karekökünü döndürür.
+  console.log(Math.SQRT2); //1.4142135623730951
+
+  //Öğrenilmesine gerek duymadığım özellikler x) : LOG2E, LOG10E
+
+  //Metotlar
+  //abs() : Parametre olarak verilen sayının mutlak değerini döndürür.
+  console.log(Math.abs(-5)); //5
+  console.log(Math.abs(-5/10)); //0.5
+  console.log(Math.abs(-0.2)); //0.2
+
+  //sqrt() : Parametre olarak verilen sayının karekökünü döndürür.
+  console.log(Math.sqrt(36)); //6
+  console.log(Math.sqrt(2.25)); //1.5
+  console.log(Math.sqrt(10*3.6)); //6
+
+  //pow() : Üs almak için kullanılır.
+  console.log(Math.pow(3, 2)); //9
+  console.log(Math.pow(3, 3)); //27
+  console.log(Math.pow(3, 4)); //81
+  console.log(Math.pow(3/2, 2)); //2.25
+  console.log(Math.pow(3.6, 2)); //12.96
+
+  //ceil() : Verilen virgüllü sayıyı yukarı yuvarlar.
+  //floor() : Verilen virgüllü sayıyı aşağı yuvarlar
+  console.log(Math.ceil(6.3)); //7
+  console.log(Math.ceil(-2.1)); //-2
+  console.log(Math.floor(6.9)); //6
+  console.log(Math.floor(-6.1)); //-7
+  console.log(Math.ceil(8.669)); //9
+  console.log(Math.floor(4.999)); //4
+  console.log(Math.ceil(6)); //6
+  console.log(Math.floor(-9)); //-9
+
+  //round() : Verilen virgüllü sayıyı yakın olana yuvarlar. 0.5, -2.5, 4.5 gibi bir sonraki ve bir önceki tamsayıya eşit uzaklıktaki değerler yukarı yuvarlanır.
+  console.log(Math.round(0.6)); //1
+  console.log(Math.round(0.4)); //0
+  console.log(Math.round(3.5)); //4
+  console.log(Math.round(-2.1)); //-2
+  console.log(Math.round(-2.7)); //-3
+  console.log(Math.round(-2.5)); //-2
+
+  //max() : Parametre olarak verilen sayıların en büyüğünü döndürür.
+  //min() : Parametre olarak verilen sayıların en küçüğünü döndürür.
+  console.log(Math.max(2, 3, 4, 5, 1, 10, 2000, 30)); //2000
+  console.log(Math.min(2, 3, 4, 5, 1, 10, 2000, 30)); //1
+  console.log(Math.max(-5, -10, -50)); //-5
+  console.log(Math.min(-2.2, -2.6)); //-2.6
+
+  //random() : 0 ile 1 arasında rastgele sayı üretir.
+  console.log(Math.random()); //0.07137295453298264
+  console.log(Math.random()); //0.5380105121592655
+  console.log(Math.random()); //0.7274145914663346 Görüldüğü gibi her seferinde farklı bir değer elde edilmekte.
+
+  //0 ile 100(0 ve 100 dahil) arasında bir tamsayı üretmek için random fonksiyonunu 100 ile çarpıp daha sonra yuvarlama fonksiyonlarından biri ile sayının ondalık kısmını atabiliriz.
+  console.log(Math.random() * 100); //79.1022032978974
+  console.log(Math.round(Math.random() * 100)); //92
+
+  //Benzer şekilde 0 ile 10(0 ve 10 dahil) arasında bir sayı için random fonksiyonu 10'la, 0 ile 1000'arasında bir sayı için random fonksiyonu 1000 ile çarpılır.
+
+  //Math objesi burada gösterdiklerimden başka metotlara da sahiptir. İhtiyaç dahilinde bu adresten daha fazlasını öğrenebilirsiniz : https://www.w3schools.com/jsref/jsref_obj_math.asp
+]
+
+#Date
+[
+  //Özellikler : constructor, prototype
+
+  //Metotlar
+  //getDate() : Günü verir. Dönebilecek değerler (1 - 31)
+  //getMonth() : Ayı verir. Dönebilecek değerler (0 - 11) Ocak -> 0 , Şubat -> 1 ...
+  //getFullYear() : Yılı verir.
+  //getDay() : Haftanın kaçıncı günü olduğunu döndürür. Dönebilecek değerler (0 - 6) Pazar -> 0 , Pazartesi -> 1 ...
+  //Aşağıdaki örnek 12.12.2015 tarihinde yapılmıştır :
+  var tarih = new Date();
+  console.log(tarih.getDate()); //12
+  console.log(tarih.getMonth()); //11
+  console.log(tarih.getFullYear()); //2015
+  console.log(tarih.getDay()); //6 -> Cumartesi
+
+  //Yukarıdaki örnekte konsola yazılan değerler sistem tarihine bağlıdır. Bilgisayarımızın tarihini değiştirip 5.1.2020 olarak ayarladık ve örneği tekrar çalıştırdık :
+  var tarih = new Date();
+  console.log(tarih.getDate()); //5
+  console.log(tarih.getMonth()); //0
+  console.log(tarih.getFullYear()); //2020
+  console.log(tarih.getDay()); //0
+
+  //Aşağıdaki örnekte ise gün, ay, yıl bilgileri Date objesine parametre olarak verdiğimiz tarihten alındı.
+  var tarih = new Date("May 16, 2008 23:15:00");
+  console.log(tarih.getDate()); //16
+  console.log(tarih.getMonth()); //4
+  console.log(tarih.getFullYear()); //2008
+  console.log(tarih.getDay()); //5
+
+  //setDate() : Günü değiştirmek için kullanılır. Beklenen değerler (1 - 31)
+  //setMonth() : Ayı değiştirmek için kullanılır. Beklenen değerler (0 - 11)
+  //setFullYear(year, month, day) : Yılı değiştirmek için kullanılır. Üç parametreli kullanarak ay ve günü de değiştirebilirsiniz. İlk parametre zorunlu 2 ve 3. parametreler opsiyonel.
+  //Aşağıdaki örnek 12.12.2015 tarihinde yapılmıştır. Değişiklik tarih objesinin değerlerinde olur, sistem tarihi setDate, setMonth, setFullYear fonksiyonlarından etkilenmez.
+  var tarih = new Date();
+  console.log(tarih.getDate(), tarih.getMonth(), tarih.getFullYear()); //12, 11, 2015 
+  tarih.setDate(1);
+  tarih.setMonth(0);
+  tarih.setFullYear(1999);
+  console.log(tarih.getDate(), tarih.getMonth(), tarih.getFullYear()); //1, 0, 1999
+
+  //getHours() : Saati verir. Dönebilecek değerler (0 - 23)
+  //getMinutes() : Dakikayı verir. Dönebilecek değerler (0 - 59)
+  //getSeconds() : Saniyeyi verir. Dönebilecek değerler (0 - 59)
+  //getMilliseconds() : Milisaniyeyi verir. Dönebilecek değerler (0 - 999)
+  //Saatimiz "12:03:56"
+  var tarih = new Date();
+  console.log(tarih.getHours()); //12
+  console.log(tarih.getMinutes()); //3
+  console.log(tarih.getSeconds()); //56
+  console.log(tarih.getMilliseconds()); //462
+
+  //Yukarıdaki örnekte konsola yazdırılan değerler sistem saatine bağlıdır.
+  //Aşağıdaki örnekte ise saat, dakika, saniye, milisaniye bilgileri Date objesine parametre olarak verilen zamandan alındı.
+  var tarih = new Date("16 May, 2008 23:15:00");
+  console.log(tarih.getHours()); //23
+  console.log(tarih.getMinutes()); //15
+  console.log(tarih.getSeconds()); //0
+  console.log(tarih.getMilliseconds()); //0
+
+  //setHours() : Saati değiştirmek için kullanılır.
+  //setMinutes() : Dakikayı değiştirmek için kullanılır.
+  //setSeconds() : Saniyeyi değiştirmek için kullanılır.
+  //setMilliseconds() : Milisaniyeyi değiştirmek için kullanılır.
+  var tarih = new Date("16 May, 2008 23:15:00");
+  console.log(tarih.getHours(), tarih.getMinutes(), tarih.getSeconds(), tarih.getMilliseconds()); //23, 15, 0, 0
+  tarih.setHours(22);
+  tarih.setMinutes(5);
+  tarih.setSeconds(31);
+  tarih.setMilliseconds(32);
+  console.log(tarih.getHours(), tarih.getMinutes(), tarih.getSeconds(), tarih.getMilliseconds()); //22, 5, 31, 32
+
+  //valueOf(), toString()
+  //Date objesinin tüm metotları için : https://www.w3schools.com/jsref/jsref_obj_date.asp
+]
+
+
+
+
+
+-JS ile Asenkron Programlama-
+#setTimeout(function, milliseconds, param1, param2, ...) : Sadece ilk parametrenin kullanımı zorunludur. Süre belirtilmezse 0 değeri
+kullanılır. Fonksiyona parametreler gönderebilirsiniz.
+[
+  setTimeout(topla, 2000, 5, 10, 20); //2 saniye sonra topla fonksiyonu çalışır. Gönderilen parametreler toplanıp sonuç konsola yazılır.
+
+  function topla(x, y, z){ 
+    console.log(x + y + z); //35
+  }
+]
+
+#clearTimeout(id_of_settimeout) : setTimeout ile ayarlanmış zamanlayıcıyı temizler. Yani ilgili fonksiyonun çalışmasını önler. setTimeout fonksiyonu geriye
+bir ID değeri döndürür. Bu değerin clearTimeout'a parametre olarak verilmesi gerekmektedir.
+[
+  var idDegeri = setTimeout(topla, 2000, 5, 10, 20); 
+
+  function topla(x, y, z){ 
+    console.log(x + y + z); 
+  }
+
+  clearTimeout(idDegeri); //Zamanlama iptal edildi. topla fonksiyonu çalışmayacak.
+]
+
+#setInterval(function, milliseconds, param1, param2, ...) : İlk iki parametrenin kullanımı zorunludur. Çalışcak fonksiyona parametreler göndermek istiyorsanız 3 ve sonraki
+parametreleri kullanabilirsiniz. Süre en küçük 10 olabilir. 10'dan küçük değerler 10 olarak kabul edilir. setInterval metodu clearInterval çağırılana kadar ya da pencere
+kapatılana kadar fonksiyonu çağırmaya devam eder.
+[
+  var x = 0;
+  var id = setInterval(arttir, 1000);
+  function arttir(){
+    console.log(x++);
+  }
+]
+
+#clearInterval(id_of_setinterval) : setInterval ile ayarlanmış zamanlayıcıyı temizler. setInterval fonksiyonunun geriye döndürdüğü ID değerinin clearInterval'a parametre
+olarak verilmesi gerekir.
+
+NOT : setTimeout, setInterval, clearTimeout, clearInterval window objesinin metotlarıdır.
+
+#Callback Fonksiyonlar
+[
+  function process1(){
+    setTimeout(function(){
+      console.log("Process 1");
+    }, 2000)
+  }
+
+  function process2(){
+    console.log("Process 2");
+  }
+
+  process1();
+  process2(); 
+
+  //process2 process1'den önce çalışır. Yani process1'in işini bitirmesini beklemez. Burada asenkron bir durum söz konusu. Bazı durumlarda process2'nin process1'den sonra 
+  //çalışması gerekebilir :
+
+  function process1(callback){ //Parametre adı olarak callback tercih edilmekte ancak bu bir zorunluluk değil.
+    setTimeout(function(){
+      console.log("Process 1");
+      callback();
+    }, 2000)
+  }
+
+  function process2(){
+    console.log("Process 2");
+  }
+
+  process1(process2); //process1 işini bitirdikten sonra process2 çalışacaktır. Senkron bir yapı oluşturduk. Burada process2 dışında virgül kullanarak process1'e başka parametreler de gönderebilirsiniz.
+]
+
+#Javascript'teki asenkron yapılar : AJAX, Fetch API(Ajax'ın alternatifi. Promise yapısıyla kullanılır.)
+
+
+
+
+
+-AJAX-
+Açılım olarak "Asynchronous JavaScript And XML", Türkçesi "Asenkron Javascript ve XML" olan AJAX sayfa yenilenmeden asenkron olarak server ya da bir REST API ile 
+veri alışverişi yapmamızı sağlayan bir yapıdır.
+
+#Veri alışverişi XML ya da Text formatında yapılabilir.
+#AJAX nasıl çalışır? : "AJAX.gif" resmine bakınız.
+#AJAX işlemleri(GET, POST, PUT, DELETE Request) için XMLHttpRequest objesi kullanılır.
+
+Örnek :
+[
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("GET", "./deneme.txt", true); 
+
+  xhr.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+        console.log(this.responseText);
+    }
+  }
+  xhr.send();
+  //Text dosyasının içeriği konsola yazılır. Çıktı -> Eren Satı
+]
+
+open(method, url, isAsync?) : 
+-İlk parametre istek türü. Okumak için GET, veri eklemek için POST, güncelleme işlemi için PUT, silme işlemi için de DELETE kullanılır.
+-İkinci parametre endpoint(URL).
+-Üçüncü parametre veri alışverişinin asenkron olup olmayacağı. Varsayılan değeri true olduğu için kullanılmasına gerek yoktur. Senkron iletişim
+için false değeri verilmelidir. false değerinin kullanılması tavsiye edilmez çünkü sunucu tarafındaki işlem zaman alabilir ya da sunucu meşgul olabili
+bu durumda browser kitlenir. Zaten senkron yapı şuan kaldırılma sürecinde.
+
+send() : İsteği gönderir. GET Request için
+send(string) : İsteği gönderir. POST Request için. Göndermek istediğimiz verileri isim değer çifti şeklinde send metoduna parametre olarak veriyoruz.
+
+onreadystatechange : readyState değeri her değiştiğinde bu olay gerçekleşir
+[
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("GET", "https://api.exchangeratesapi.io/latest", true);
+  
+  xhr.onreadystatechange = function(){
+    console.log(this.readyState); //Konsol çıktısı : 2, 3, 4
+  }
+  xhr.send();
+]
+
+readyState değerleri ve anlamları :
+- 0 : Open metodu kullanılmadan önce.
+- 1 : Open metodu kullanıldıktan sonra.
+- 2 : İstek alındı.
+- 3 : İstek işleniyor.
+- 4 : İstek tamamlandı ve response hazır.
+[
+  var xhr = new XMLHttpRequest();
+
+  console.log(xhr.readyState); //0
+
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
+  
+  console.log(xhr.readyState); //1
+]
+
+.responseText : String türündeki verileri responseText ile alıyoruz.
+.responseXML : XML verilerini responseXML ile alıyoruz.
+
+.status : Durum kodları(ve anlamları) -> https://restfulapi.net/http-status-codes/ , https://www.w3schools.com/tags/ref_httpmessages.asp
+[
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("GET", "https://api.exchangeratesapi.io/latest", true);
+  
+  xhr.onreadystatechange = function(){
+    console.log(this.status); //200, 200, 200
+  }
+  xhr.send();
+]
+
+En çok karşılaşılan durum kodları : 
+- 200 : OK
+- 404 : Not Found
+
+.getAllResponseHeaders() : Başlık bilgisinin tamamını döndürür.
+.getResponseHeader(string) : İstenilen başlık bilgisini döndürür.
+[
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "https://api.exchangeratesapi.io/latest", true);
+
+  xhr.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      console.log(this.getAllResponseHeaders()); //cache-control: max-age=1800content-type: application/json
+      console.log(this.getResponseHeader("content-type")); //application/json
+    }
+  }
+  xhr.send();
+]
+
+.abort() : İsteği iptal eder. send() metodundan sonra kullanılmalıdır, önce kullanılırsa bir etkisi olmaz.
+
+.setRequestHeader(header, value) : Gönderilecek verilere başlık bilgisi eklemek için kullanılır.
+-header : başlığın adı
+-value : değeri
+[
+  xhttp.open("POST", "ajax_test.asp", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //
+  xhttp.send("fname=Henry&lname=Ford");
+]
+
+
+
+
+
+-JSON-
+JavaScript Object Notation(Javascript Obje Notasyonu). JSON, Javascript obje sözdizimi ile yazılmış bir metindir(text-string).
+
+#Veri taşımak ve saklamak için kullanılır.
+#JSON dosyaları .json uzantılıdır.
+#JSON metinlerinin MIME türü "application/json" dır.
+#AJAX ile taşıdığımız veriler sadece string ya da XML türünde olabilir. JSON da bir string olduğu için JSON formatındaki response'u okurken
+responseText kullanırız.
+
+#Storage'a sadece string türünde veriler kaydedebiliyoruz. obje ve diziler storage'a JSON formatında eklenebilir. Bunun için JSON.stringify() kullanın.
+
+#JSON vs XML (Karşılaştırma) : https://www.w3schools.com/js/js_json_xml.asp
+
+JSON formatında bir string
+var json = '{"name": "John", "age": 31, "city": "New York"}';
+console.log(typeof json); //string
+
+#JSON Sözdizim Kuralları
+-JSON'da isim değer çiftleri string türünde olmalıdır.
+-JSON'da değerler aşağıdaki veri türlerinden biri olmalıdır :
+string
+number
+boolean
+array
+object
+null
+
+-JSON'da değerler aşağıdaki veri türlerinden biri olamaz :
+function
+new Date()
+undefined
+
+-JSON'da
+-string kullanmak :
+"name": "John"
+
+-number kullanmak :
+"age": 30 veya "PI": 3.14
+
+-boolean kullanmak :
+"sale": true
+
+-array kullanmak :
+"employees": ["John", "Anna", "Peter"]
+
+-obje kullanmak :
+"employee": {"name": "John", "age": 30, "city": "New York" }
+
+-null kullanmak :
+"job": null
+
+#JSON.parse() : JSON verisini ayrıştırmak için kullanılır. JSON ayrıştırıldığında bir Javascript objesi haline gelir.
+[
+  var json = '{"name": "John", "age": 31, "city": "New York"}';
+  var obj = JSON.parse(json);
+  
+  console.log(typeof json); //string
+  console.log(typeof obj); //object
+  console.log(obj.name); //John
+]
+
+#JSON.stringify() : Javascript objelerini(ya da dizilerini) JSON formatında string'e dönüştürür.
+[
+  var obj = {name: "John", age: 30, city: "New York" };
+  var json = JSON.stringify(obj);
+
+  console.log(json); //{"name":"John","age":30,"city":"New York"}
+  console.log(typeof json); //string
+
+  var arr = ["John", "Peter", "Sally", "Jane"];
+  console.log(JSON.stringify(arr)); //["John","Peter","Sally","Jane"]
+]
+
+#JSON verisi içerisinde tarih objelerine izin verilmediği için stringify() tarih objelerini string'e dönüştürür. String'i alıcıda
+tekrar bir tarih objesine dönüştürebilirsiniz.
+[
+  var obj = {name: "John", today: new Date(), city: "New York"};
+  var json = JSON.stringify(obj);
+
+  console.log(json); //{"name":"John","today":"2019-12-17T20:57:36.029Z","city":"New York"}
+]
+
+#JSON verisi içerisinde fonksiyonlara izin verilmediği için stringify() fonksiyonları siler.
+[
+  var obj = {name: "John", age: function(){return 30;}, city: "New York"};
+  var json = JSON.stringify(obj);
+
+  console.log(json); //{"name":"John","city":"New York"}
+]
+
+Fonksiyonları string'e çevirip daha sonra stringify() kullanın. Alıcıda eval() ile yeniden fonksiyonlara dönüştürebilirsiniz.
+[
+  var obj = {name: "John", age: function(){return 30;}, city: "New York"};
+  obj.age = obj.age.toString();
+
+  var json = JSON.stringify(obj);
+  console.log(json); //{"name":"John","age":"function(){return 30;}","city":"New York"}
+  
+  var obj2 = JSON.parse(json);
+  console.log(obj2); //{name: "John", age: "function(){return 30;}", city: "New York"} //age'i eval ile fonksiyona dönüştürmemiz gerekiyor.
+]
+
+
+
+
+
+-Performans için İpuçları-
+#Javascript dosyalarını body'nin sonunda çağırmak tarayıcının önce sayfa içeriğini yüklemesini sağlar.
+#Javascript kodlarını harici dosyada bulundurmak sayfanın yüklenme hızını arttırabilir. Çünkü tarayıcılar indirdikleri dosyaları
+önbelleğe alırlar.
+#Javascript objelerini kullanırken new anahtar kelimesini kullanmaktan kaçının(Mümkünse tabi. Örneğin bir değişken tanımlamak ya da dizi oluşturmak
+için obje üretmek zorunda değilsiniz). Yürütme hızını yavaşlatır.
+
+#Döngü ifadeleri her döngü adımında yeniden yürütülür. Örneğin :
+[
+  var sayilar = [1, 2, 3, 4, 5];
+  for(var i = 0; i < sayilar.length; i++){
+    console.log(sayilar[i]); //1, 2, 3, 4, 5 değerleri alt alta yazılır.
+  }
+
+  //Bu kod yukarıdakine göre daha hızlıdır. Çünkü dizinin eleman sayısını her döngü adımında yeniden almak yerine döngü dışında bir kez alıp kullandık.
+  var sayilar = [1, 2, 3, 4, 5];
+  var l = sayilar.length;
+  for(var i = 0; i < l; i++){
+    console.log(sayilar[i]);
+  } 
+]
+
+#Gereksiz değişken tanımlarından kaçının.
+#DOM içindeki öğe sayısını küçük tutun. Yani sayfa içerisinde çok fazla etiket tanımlamayın.
+
+#DOM erişimini azaltın. DOM'a erişim Javascript kodlarına kıyasla yavaştır. DOM öğesine birkaç kez erişmeyi düşünüyorsanız bir kez erişin ve değişken üzerinden
+kullanın.
+[
+  var obj = document.getElementById("box");
+  obj.innerHTML = "kutu1";
+]
+
+
+
+
+
+-NOT-
+#Belge yüklendikten sonra document.write() kullanılması mevcut tüm HTML'i siler. document.write() yalnızca test için kullanılmalıdır.
+
+#Kodlarınızı okunabilir yapmak için boşlukları kullanabilirsiniz.
+[
+  var name   = "Eren";
+  var age    = 27;
+  var job    = "Front-end Developer";
+  var gender = "M";
+]
+
+#Kod satırı çok uzunsa okunabilirliği arttırmak için alt satırdan devam edebilirsiniz.
+[
+  document.getElementById("box").innerHTML =
+  "Javascript";
+]
+
+#string ifadeler backslash(\) ile kırılabilir.
+[
+  document.getElementById("box").innerHTML =
+  "Java\
+script"; //NOT -> Kırma işleminden sonra boşluk kullanmayın.
+
+  //Ancak bu bazı tarayıcılar tarafından desteklenmeyebilir. Bir string'i kırmanın en güvenli yolu + operatörünü kullanmaktır :
+  document.getElementById("box").innerHTML =
+  "Java" + 
+  "script";
+]
+
+#Yorum satırları için genelde // kullanılır. Çok satırlık yorum ifadesi /* */ resmi belgelerde tercih edilir.
+
+#Javascript değişkenlerinin ömürleri tanımlandıklarında başlar. Function ve Block scope'daki değişkenler tanımlandıkları blogun sonunda bellekten silinirler. 
+Global scope'daki değişkenler ise tarayıcı penceresinin(ya da sekmesinin) kapatılmasıyla ömrünü tamamlar(bellekten silinir). 
+
+#Fonksiyon parametreleri kendi kapsamları içerisinde yerel değişken olarak çalışır.
+
+#Hoisting Javascript'in tüm değişken ve fonksiyon bildirimlerini geçerli kapsamın en üstüne taşıma varsayılan davranışıdır. Hoisting hakkında daha fazla 
+bilgi için : https://www.w3schools.com/js/js_hoisting.asp
+
+#Strict Mode nedir? : https://www.w3schools.com/js/js_strict.asp
+
+#Değişken tanımlarını bir fonksiyonun ya da belgenin en üstünde yapmak iyi bir kodlama uygulamasıdır. Bu, ilgili scope içerisindeki
+değişkenleri tek bir noktada toplamamızı sağlar ve bazı durumlarda bizi scope içerisinde değişken aramaktan kurtarır.
+
+#Değişkenlere başlangıç değeri vermek iyi bir kodlama uygulamasıdır. (Tanımlanmamış değerlerden kaçının) 
+-İlk değer ataması değişkenin kullanım amacı hakkında bir fikir sağlar.
+[
+  var firstName = "",
+  lastName = "",
+  price = 0,
+  discount = 0,
+  fullPrice = 0,
+  myArray = [],
+  myObject = {};
+]
+
+#Javascript objelerinin prototiplerinin değiştirilmesi(özellik-metot ekleme, silme gibi) tavsiye edilmiyor.
+
+#Tip dönüşüm tablosu : https://www.w3schools.com/jsref/jsref_type_conversion.asp
+
+#Rezerve edilmiş kelimeler : https://www.w3schools.com/js/js_reserved.asp
+
+
+
+
+
+-DOM(Document Object Model)-
+DOM Nedir?
+Döküman Obje Modeli, herhangi bir programlama dili veya script ile bir dökümana dinamik olarak erişmeyi ve bu dökümanın içeriğini, yapısını, stilini
+dinamik olarak değiştirmeyi sağlayan bir yapıdır. Bu, W3C'nin DOM için yaptığı tanımdır.
+
+#DOM bir W3C standardıdır.
+#Üç çeşit DOM modeli bulunmaktadır : HTML DOM, XML DOM ve Core DOM
+#Daha detaylı bilgi için "https://www.w3.org/DOM/" adresini ziyaret edebilirsiniz.
+
+HTML DOM
+İnternet tarayıcıları web sayfalarını bir belge, bu belge içerisinde bulunan tüm elemanları da birer nesne olarak kabul ederler. Yani sayfa içerisindeki 
+resim, form, yazı, video gibi tüm elemanlar nesne olarak kabul edilir. İşte DOM bu nesneler(başka bir deyişle elemanlar, elementler) üzerinde değişiklik 
+yapma, yenilerini ekleme veya var olanları silme gibi işlemler yapmamıza olanak sağlar.
+
+#HTML DOM ağacını görmek için "DOM Ağacı.png" dosyasına bakınız.
+#Bir web sayfası yüklendiğinde tarayıcı tüm HTML öğelerini obje olarak tanımlar ve DOM'u yani sayfanın nesne modelini oluşturur.
+
+DOCUMENT
+#document objesi window objesinin altında bulunmaktadır. console.log(this) komutunu çalıştırdıktan sonra window'un altında document'i bulup içeriğindeki
+özellik ve metotları görebilirsiniz.
+#console.log(document) veya console.log(this.document) komutu çalıştırıldığında ise HTML dökümanı konsola yazılır. Örneğin aşağıdaki HTML sayfasının konsoldaki
+çıktısı Resim1.png'deki gibi olur.
+[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Başlık</title>
+</head>
+<body>
+
+        <script>
+            console.log(document); //Bkz : Resim1.png
+        </script>
+</body>
+</html>
+]
+
+#document.all:
+[
+  //document.all : Sayfadaki tüm elementleri bir obje içinde döndürür. Dönen obje HTMLAllCollection türündedir.  
+  let doc=document.all;
+  console.log(doc); //Bkz : Resim2.png
+  
+  //document.all.length ile sayfadaki element sayısını öğrenebilirsiniz.
+  
+  //document.all[index] : Sayfadaki herhangi bir element index numarasına göre seçilir. 
+  console.log(doc[doc.length-1]); //Son elementi seçtik. Konsol çıktısı için bkz : Resim3.png
+  
+  //Aşağıdaki örnekte document.all'ı for döngüsü ile beraber kullanarak tüm elemanların konsolda listelenmesini sağladık.
+  let elements=document.all;
+  for(let i=0;i<elements.length;i++){
+    console.log(elements[i]); //Resim4.png
+  }
+
+  //NOT : HTMLAllCollection üzerinde gezinmek için forEach kullanılamaz. Örneğin:
+  let elements=document.all;
+  elements.forEach(function(el){
+    console.log(el);  //Konsoldaki hata mesajı : Resim5.png
+  });
+  //Bu işlemi gerçekleştirmek için objeyi "Array.from(document.all)" şeklinde diziye dönüştürebilirsiniz.
+  //Array.from() metodu IE 11 tarafından desteklenmez ama Edge destekler.
+]
+
+#document objesinin diğer özellik ve metotları:
+[
+  //document.body : body'i seçmek için kullanılır.
+  console.log(document.body.nodeName); //BODY
+
+  //document.head : head'i seçmek için kullanılır.
+
+  //document.documentElement : Kök elementi verir. HTML sayfalarında kök element <html></html> etiketidir.
+
+  //document.characterSet : Sayfanın karakter setini verir.
+
+  //document.title : Sayfa bağlığını almak ya da değiştirmek için kullanılır. Değişiklik document.title="Yeni Başlık" şeklinde yapılır.
+
+  //document.write() : Parametre olarak verilen değeri sayfa içerisine yazar. 
+  document.write(5);
+  document.write("deneme...");
+  document.write(true);
+
+  //document.domain : Alan adını verir.
+  console.log(document.domain); //www.erensati.com --> !Dikkat URL Adresi : http://www.erensati.com/index.html?isim=eren
+
+  //document.images : Dökümandaki resimleri bir obje içinde döndürür. Dönen obje HTMLCollection türündedir.
+  //document.all'da olduğu gibi index numaralarına göre resimleri seçebiliriz veya bir döngü ile HTMLCollection üzerinde gezinip işlem yapabiliriz.
+
+  //document.forms : Dökümandaki formları bir obje içinde döndürür.(HTMLCollection)
+
+  //document.links : Dökümandaki linkleri bir obje içinde döndürür.(HTMLCollection) NOT : href özelliği kullanılmayan linkler seçilmez.
+
+  //document.scripts : Dökümandaki script etiketlerini bir obje içinde döndürür.(HTMLCollection)
+
+  //document.getElementById("id") : id değerine göre eleman seçmek için kullanılır. Aynı id'ye sahip birden fazla eleman varsa sadece ilk eleman seçilir. id'si 
+  //verilen eleman yoksa null değer döner.
+
+  //document.querySelector("CSS Selector") : CSS seçicileri ile eleman seçmek için kullanılır. İlgili seçici birden fazla elemanı hedef alıyorsa sadece ilk eleman seçilir.
+  //Seçici ile eşleşen eleman yoksa null değer döner.
+
+  //document.getElementsByTagName("Tag Name") : Belirtilen etiket ismine sahip tüm elemanları bir obje içinde döndürür.(HTMLCollection)
+
+  //document.querySelectorAll("CSS Selector") : querySelector'den farlı olarak CSS Selector tarafından hedef alınan tüm elemanları bir obje içinde döndürür.(NodeList)
+  //Dönen obje NodeList arayüzü ile tanımlanmıştır. NOT : querySelectorAll statik bir NodeList nesnesi döndürür. Yani belge içerisinde programatik olarak değişiklik yapıldığında
+  //NodeList içerisinde güncelleme yapılmaz.
+  <div id="kutu">
+    <p class="p">Paragraf 1</p>
+    <p class="p">Paragraf 2</p>
+  </div>
+  <script>
+    var nodeList=document.querySelectorAll(".p");
+    console.log(nodeList.length); //2
+    var yeniP=document.createElement("p");
+    yeniP.textContent="Paragraf 3"
+    document.querySelector("#kutu").appendChild(yeniP);
+    console.log(nodeList.length); //2
+  </script>
+
+  //document.getElementsByClassName("className className2...") : class name'e göre eleman seçmek için kullanılır. Elemanların, parametre olarak girilen class isimlerinin 
+  //tamamını içermesi gerekir. HTMLCollection türünde bir obje döner.
+  console.log(document.getElementsByClassName("card-list")); //class listesinde card-list blununan tüm elemanlar seçilir.
+  console.log(document.getElementsByClassName("qwe abc")); //class listesinde hem qwe hem de abc bulunan elemanlar seçilir. Dilerseniz araya boşluk koyarak daha fazla class
+                                                           //adı ekleyebilirsiniz. 
+
+  //document.createElement("Element Adı") : HTML elementi oluşturmak için kullanılır. Oluşturulan elementler appendChild veya insertBefore fonksiyonları ile dökümana eklenebilir.
+  //innerHTML, innerText ve textContent özellikleri ile içeriği düzenlenebilir. 
+  var p=document.createElement("p");
+  console.log(p); //<p></p>
+
+  //document.createTextNode("Text") : TextNode oluşturmak için kullanılır. TextNode'u appendChild veya insertBefore fonksiyonları ile dökümana ekleyebilirsiniz. 
+
+  //document.createAttribute("Attr Name") : AttributeNode oluşturmak için kullanılır. Oluşturulan Attribute'ler setAttributeNode() ile elementlere eklenir.
+
+  //document.createComment("text") : CommentNode oluşturmak için kullanılır. appendChild veya insertBefore ile dökümana ekleyebilirsin.
+
+  //document.addEventListener("Olay Adı", Fonksiyon Adı, true yada false) : Dökümana olay tanımlamak için kullanılır. Browser, olay hakkında bilgi içeren bir event objesini 
+  //fonksiyona parametre olarak gönderir. Üçüncü parametre isteğe bağlıdır.
+
+  //document.removeEventListener("Olay Adı", Fonksiyon Adı, true ya da false) : Dökümana addEventListener ile eklenmiş olayı kaldırmak için kullanılır. NOT : Olay hem
+  //bubbling hem de capturing olarak tanımlanmışsa her biri ayrı ayrı kaldırılır. Üçüncü parametre isteğe bağlı.
+
+  //document.referrer : Bir bağlantıya tıklayarak sayfaya gelen kullanıcıların geldiği sayfanın tam url adresini döndürür. Bağlantıya tıklamadan gelinmesi
+  //durumunda(Örneğin sayfa adresinin url'ye yazılıp girilmesi durumu) boş dize döner.
+
+  //document.hasFocus() : Belge odak durumundaysa true aksi halde false döner.
+  //Örnek bir uygulama :
+  window.addEventListener("blur",function(){
+    console.log(document.hasFocus());
+  });
+  window.addEventListener("focus",function(){
+    console.log(document.hasFocus());
+  });
+
+  //document.readyState : Belgenin yüklenme durumunu döndürür. uninitialized -> Henüz yüklenmeye başlanmadı. loading -> Yükleniyor. loaded ->Yüklendi
+  //interactive -> Yeterince yüklü ve kullanıcı sayfayla etkileşime geçebilir. complete -> Tamamen yüklendi.
+
+  //document.createDocumentFragment() : https://www.w3schools.com/jsref/met_document_createdocumentfragment.asp -> EFSAAAAAAAAAANE BİRŞEY :d
+
+  //document.fullscreenEnabled() , fullscreenElement : https://www.w3schools.com/jsref/met_document_fullscreenenabled.asp , https://www.w3schools.com/jsref/prop_document_fullscreenelement.asp
+
+  //document.cookie : https://www.w3schools.com/jsref/prop_doc_cookie.asp
+
+  //document.createEvent() : https://www.w3schools.com/jsref/event_createevent.asp
+]
+
+#DOM işlemleri (element)
+[
+  //Örneklerimizi şu div üzerinden yapalaım.
+  <div id="kutu">
+    Kutu1
+    <span>Span</span>
+    <a>Link</a>
+    <span>Span2</span>
+    <a>Link 2</a>
+  </div>
+  <div id="kutu2">Kutu2</div>
+
+
+  //.tagName : Elementin adını verir.
+  console.log(document.documentElement.tagName); //HTML
+
+  //.nodeName : Düğümün adını verir.
+  console.log(document.getElementById("kutu").nodeName); //DIV
+  console.log(document.getElementById("kutu").attributes[0]); //id="kutu"
+  console.log(document.getElementById("kutu").attributes[0].nodeName); //id
+
+  //.nodeValue : Düğümün değerini almak ya da değiştirmek için kullanılır.
+  console.log(document.getElementById("kutu2").nodeValue); //null --> Element Node'lar için null değeri döner. Attribute Node'lar için özelliğin değeri, metin ve yorum düğümlerinin içeriği döner.
+  console.log(document.getElementById("kutu2").attributes[0].nodeValue); //kutu2
+  
+  document.getElementById("kutu2").attributes[0].nodeValue="kutu3"; //Düğümün değerini değiştirdik, yani elemanın id özelliğini.
+  console.log(document.getElementById("kutu3").attributes[0].nodeValue); //kutu3
+
+  //.nodeType : Düğümün tipini verir.
+  //1 : ELEMENT_NODE, 2 : ATTRIBUTE_NODE, 3 : TEXT_NODE, 4 : CDATA_SECTION_NODE, 5 : ENTITY_REFERENCE_NODE,  6 : ENTITY_NODE, 7 : PROCESSING_INSTRUCTION_NODE,
+  //8 : COMMENT_NODE, 9 : DOCUMENT_NODE, 10 : DOCUMENT_TYPE_NODE, 11 : DOCUMENT_FRAGMENT_NODE, 12 : NOTATION_NODE
+  console.log(document.getElementById("kutu").nodeType); //1
+  console.log(document.getElementById("kutu").attributes[0].nodeType); //2
+  console.log(document.getElementById("kutu").childNodes[0].nodeType); //3
+
+  //.parentElement : Bir üst elementi seçmek için kullanılır. parentNode'dan farkı eğer üst düğüm element değilse null değer döndürür.
+  console.log(document.getElementsByTagName("span")[0].parentElement); //<div id="kutu">...</div>
+
+  //.parentNode : Bir üst düğümü seçmek için kullanılır.
+  console.log(document.getElementsByTagName("span")[0].parentNode); //<div id="kutu">...</div>
+
+  //childNodes : Elementin tüm çocuk düğümlerini NodeList objesi içinde döndürür.
+  console.log(document.getElementById("kutu").childNodes);  //Resim6.png
+  console.log(document.getElementById("kutu").childNodes.length); //9 -->Çünkü elementin içinde boşluklar ve Kutu1 metni var, bunlar TEXT_NODE olarak değerlendirilir.
+  console.log(document.getElementById("kutu").childNodes[1]); //<span>Span</span>
+
+  //children : Sadece element olan çocuk düğümler döndürür. (HTMLCollection)
+  console.log(document.getElementById("kutu").children[0]); //<span>Span</span>
+  console.log(document.getElementById("kutu").children.length) //4
+
+  //.nextSibling : Bir sonraki node'u seçmek için kullanılır.
+  console.log(document.getElementById("kutu").nextSibling); //#text -->Çünkü iki div arasında boşluk(alt satır boşluk olarak kabul ediliyor) mevcut. Eğer ilk div kapandığı 
+                                                            //gibi ikinci div başlasaydı (</div><div id="kutu2">Kutu2</div> şeklinde) Kutu2 seçilirdi.
+  console.log(document.getElementById("kutu").nextSibling.nextSibling); //<div id="kutu2">Kutu2</div>
+
+  //.previousSibling : Bir önceki node'u seçmek için kullanılır.
+  
+  //.nextElementSibling : Bir sonraki element node'u seçmek için kullanılır.
+  
+  //.previousElementSibling : Bir önceki element node'u seçmek için kullanılır.
+
+  //.firstChild : İlk alt node'u seçmek için kullanılır.
+
+  //.lastChild : Son alt node'u seçmek için kullanılır.
+
+  //.firstElementChild : Element olan ilk alt node'u seçmek için kullanılır.
+
+  //.lastElementChild : Element olan son alt node'u seçmek için kullanılır.
+
+  //.hasChildNodes() : Element bir alt düğüme sahipse true aksi halde false döner.
+
+  //.remove() : Parametresi yoktur, element.remove() şeklinde kullanılır. İlgili elementi siler.[Edge+]
+
+  //.removeChild() : Elementin alt düğümlerinden birini silmek için kullanılır.
+  document.getElementById("kutu").removeChild(document.getElementById("kutu").firstChild); //Kutu1 metni silinir.
+  
+  var el=document.getElementById("kutu");
+  el.removeChild(el.firstChild.nextSibling); //span etiketi silinir.
+  el.removeChild(el.childNodes[0]); //Bu sefer de ilk node silinir, yani Kutu1 metni.
+
+  //.replaceChild(yeniEleman , degisecekEleman) : Elementin bir alt düğümünü yenisi ile değiştirir.
+  var p=document.createElement("p");
+  p.innerHTML="Paragraf";
+  var anaEleman=document.getElementById("kutu2");
+  var degisecekEleman=document.getElementById("kutu2").firstChild;
+  anaEleman.replaceChild(p, degisecekEleman); //Text Node'u kaldırıp paragraf ekledik.
+
+  //.appendChild() : Elementin alt düğümlerinin sonuna yeni bir eleman eklemek için kullanılır.
+  <div id="p">
+    <p>1. Paragraf</p>
+  </div>
+  <input type="button" value="Ekle" onclick="paragrafEkle()" />
+  <script>
+  function paragrafEkle(){
+    var p=document.createElement("p");
+    var anaEleman=document.getElementById("p");
+    p.innerHTML=(anaEleman.children.length + 1) + ". Paragraf"; //Burada innerHTML yerine innerText ve textContent özellikleri de kullanılabilir.
+    anaEleman.appendChild(p);
+  }
+  </script>
+
+  //.insertBefore(yeniEleman, refEleman) : Elementin alt düğümlerinden birinin öncesine yeni eleman eklemek için kullanılır.
+  <div id="div">
+    <p id="p1">p1</p>
+    <p id="p3">p3</p>
+  </div>
+  <script>
+  var elem=document.createElement("p");
+  var anaEleman=document.getElementById("div");
+  var refEleman=document.getElementById("p3");
+  elem.setAttribute("id","p2");
+  elem.innerText="p2";
+  anaEleman.insertBefore(elem, refEleman);
+  </script>
+
+  //-----------------------------------------------------------------------
+
+  //Bundan sonraki örneklerimizde aşağıdaki form'u kullanacağız.
+  <form id="form1" method="POST" action="Default.aspx">
+    <input type="text" id="mail" />
+    <input type="password" id="sifre" />
+    <input type="submit" id="gonder" value="Gönder" />
+  </form>
+
+
+  //.attributes : Elementin Attribute'lerini bir obje içinde döndürür. Bu obje NamedNodeMap türündedir.
+  console.log(document.getElementById("form1").attributes.length); //3
+  document.getElementById("form1").attributes[1].nodeValue="GET"; //method özelliğini GET yaptık.
+  console.log(document.getElementById("form1").attributes[1]); //method="GET"
+  console.log(document.getElementById("form1").attributes[1].nodeName); //method
+
+  //.getAttribute("Özellik") : Elementin belirtilen özelliğinin değerini verir. Özellik yoksa null değer döner.
+  console.log(document.getElementById("form1").getAttribute("id")); //form1
+  console.log(document.getElementById("form1").getAttribute("style")); //null
+
+  //.setAttribute("Özellik", "Değer") : Elemente özellik eklemek için kullanılır. Zaten varolan özellik elenirse mevcut özelliğin değeri değişir.
+  //NOT : createElement ile oluşturduğunuz elementlere özellik eklerken bu metodu kullanabilirsiniz.
+  document.getElementById("gonder").setAttribute("type", "button"); //Butonun type özelliğini değiştirdik.
+  document.getElementById("mail").setAttribute("placeholder", "Mail adresinizi girin..."); //input'a placeholder özelliği ekledik.
+  //Bu metotla elementlere style özelliği ve event da ekleyebiliyoruz.
+  document.getElementById("gonder").setAttribute("style","background-color:red !important");
+  document.getElementById("mail").setAttribute("onfocus", "console.log('Merhaba')");
+
+  //.removeAttribute("Özellik") : Elementin belirtilen özelliğini silmek için kullanılır.
+
+  //.hasAttribute("Özellik") : Element belirtilen özelliğe sahipse true aksi halde false döner.
+
+  //.hasAttributes() : Element bir özelliğe sahipse true aksi halde false döner.
+
+  //.setAttributeNode() : document.createAttribute ile oluşturulan Attribute Node'lar bu fonksiyon ile elementlere eklenir. Özellik zaten mevcutsa değerini değiştirir.
+  <img id="resim" src="https://cdnuploads.aa.com.tr/uploads/sirkethaberleri/Contents/2019/04/02/thumbs_b_c_4f658af5cb06d7682dc5c73d7cc4fcd4.jpg" />
+  <script>
+  var attr1=document.createAttribute("width");
+  var attr2=document.createAttribute("height");
+  attr1.nodeValue="650";
+  attr2.nodeValue="400";
+  document.getElementById("resim").setAttributeNode(attr1);
+  document.getElementById("resim").setAttributeNode(attr2);
+  </script>
+  //createElement ile oluşturduğunuz elementlere Attribute eklerken setAttribute yerine setAttributeNode da kullanabilirsiniz.
+  var p=document.createElement("p");
+  var id=document.createAttribute("id");
+  id.nodeValue="p1";
+  p.setAttributeNode(id);
+  document.body.appendChild(p);
+
+  //.getAttributeNode("Özellik") : Elementin belirtilen özelliğini Attribute Node olarak döndürür. Belirtilen özellik yoksa null değer döner.
+  //NOT : getAttribute metodu özelliğin değerini döndürmekteydi, bu ise özellik="değer" ikilisi döndürüyor.
+  console.log(document.documentElement.getAttributeNode("lang")); //lang="en"
+  console.log(document.documentElement.getAttribute("lang")); //en
+  console.log(document.documentElement.getAttributeNode("style")) //null -->html etiketimizde style özelliği yoktu.
+
+  //.removeAttributeNode("Attribute Node") : İlgili attribute node'u silmek için için kullanılır.
+  document.body.parentElement.removeAttributeNode(document.body.parentElement.getAttributeNode("lang"));
+  console.log(document.body.parentElement.getAttributeNode("lang")); //null
+
+  //.getElementsByTagName()
+
+  //.getElementsByClassName()
+
+  //.querySelector()
+
+  //.querySelectorAll()
+
+  //.focus() : focus olayını javascript tarafında gerçekleştirir.
+  <input id="input1" type="text" />
+  <script>
+  document.getElementById("input1").addEventListener("mouseover", function(){
+    this.focus();
+  });
+  </script>
+
+  //.blur() : Bir öğeden odak kaldırmak için kullanılır.
+  <input id="input1" type="text" />
+  <script>
+  document.getElementById("input1").addEventListener("focus", function(){
+    this.blur();
+  });
+  </script>
+
+  //.click() : click olayını javascript tarafında gerçekleştirir. Bu metotla sayfadaki herhangi bir elemana(div, checkbox vb.) programsal olarak 
+  //tıklayabilirsiniz.
+  
+  //.innerHTML : Elementin html içeriğini almak ya da değiştirmek için kullanılır.
+  <div id="kutu">Kutu1</div>
+  <script>
+    document.getElementById("kutu").innerHTML="<b>Kalın Yazı</b>"; //Yeni içerik <b>Kalın Yazı</b> olur.
+    document.getElementById("kutu").innerHTML+="<i>İtalik Yazı</i>"; //İçeriğe <i>İtalik Yazı</i> eklenir.
+  </script>
+
+  //.innerText : Ögenin ve tüm alt öğelerin metin içeriğini ayarlar ya da döndürür. CSS ile gizlenmiş elemanların içeriği alınmaz. Değişiklik yaparken kullandığınız 
+  //HTML kodları text olarak kabul edilir. (innerHTML'deki gibi "+=" operatörünü kullanabilirsiniz.)
+
+  //.textContent : Öğenin ve tüm alt öğelerin metin içeriğini ayarlar ya da döndürür. CSS ile gizlenmiş elemanların içeriği de "alınır!". Değişiklik yaparken kullandığınız.
+  //HTML kodları text olarak kabul edilir. (innerHTML'deki gibi "+=" operatörünü kullanabilirsiniz.) innerText'den bir diğer farkı da <style> ve <script> etiketleri üzerinde
+  //kullanılamaması.
+
+  //.className : Elemanın class özelliğinin değerini string olarak döndürür. className="n1 n2 n3..." şeklinde değişiklik yapabiliyoruz.
+
+  //.classList : className'den daha kullanışlıdır. classList geriye DOMTokenList türünde bir obje döndürür. Bu objenin metotları ile class değerlerine
+  //tek tek ulaşabilir, yeni değerler ekleyebilir veya varolanları kolaylıkla silebiliriz.
+  //DOMTokenList arayüzü ile tanımlanan özellik metotlar:
+  //.length ->atanmış class sayısını öğrenebiliriz.
+  //.item(index) ->index numarasına göre class değeri seçmek için kullanılır.
+  //.contains("class Adı") ->parametre olarak verilen class DOMTokenList içinde mevcutsa true aksi halde false döner.
+  //.add("class Adı") ->Listeye class eklemek için kullanılır. Eklenecek eleman zaten mevcutsa ekleme işlemi yapılmaz.
+  //.remove("class Adı") ->Listeden ilgili class'ı silmek için kullanılır.
+  //.toggle("class Adı") ->İlgili class listede varsa siler, yoksa ekler. 
+
+  //.contains() : Bir düğümün başka bir düğümün soyundan gelip gelmediğini boolean türünde döndürür.(Parametre olarak verilen elemanı içeriyorsa anlamına gelir)
+  <div id="scope">
+    <div id="box">
+      <span id="span">span</span>
+    </div>
+  </div>
+  <script>
+    var el1 = document.getElementById("scope");
+    var el2 = document.getElementById("span");
+    console.log(el1.contains(el2)); //true
+  </script>
+
+  //.outerHTML : innerHTML elementin HTML içeriğini döndürmekteydi. Ya da değişiklik yaptığımızda içerik güncelleniyordu. outerHTML ise "hem elementin kendisini" hem de içeriğini
+  //döndürüyor. Ayrıca değişiklik yapıldığında ilgili element silinip yerine yeni eklediğimiz geliyor.
+
+  //.outerText : outerHTML gibi çalışıyor bu da innerText'in alternatifi.
+
+  //.offsetWidth : Elementin genişliğini verir. Genişliğe sol ve sağ padding ile sol ve sağ border değerleri dahildir. scrollbar genişliği etkilemez.
+
+  //.offsetHeight : Elementin yüksekliğini verir. Yüksekliğe üst ve alt padding ile üst ve alt border değerleri dahildir. scrollbar yüksekliği etkilemez.
+
+  //.clientWidth : Elementin genişliğini verir. Genişliğe sadece sol ve sağ padding değeri dahildir. NOT : Dikey scrollbar varsa scrollbar'ın kapladığı alan(Yaklaşık 16px) hariç tutulur(Genişlikten düşülür).
+
+  //.clientHeight : Elementin yüksekliğini verir. Yüksekliği sadece üst ve alt padding değeri dahildir. NOT : Yatay scrollbar varsa scrollbar'ın kapladığı alan(Yaklaşık 16px) hariç tutulur(Yükseklikten düşülür).
+
+  //.scrollWidth : Elementin tüm genişliğini verir. Genişliğe sol ve sağ padding değeri ile scrollbar varsa onun içeriği de dahildir. scrollbar'ın kapladığı alan(Yaklaşık 16px) hariç tutulur sadece içeriğin genişliği alınır.
+
+  //.scrollHeight : Elementin tüm yüksekliğini verir. Yüksekliğe sol ve sağ padding değeri ile scrollbar varsa onun içeriği de dahildir. scrollbar'ın kapladığı alan(Yaklaşık 16px) hariç tutulur sadece içeriğin yüksekliği alınır.
+
+  //.scrollTop : Dikey kaydırma çubuğunun üstten uzaklığını almak ya da değiştirmek için kullanılır(Elementler için). Elementin kaydırma çubuğu yoksa 0 değeri döner ve
+  //değişiklik yapılamaz. Kaydırma çubuğu varsa element.scrollTop=number, .scrollTop+=number veya .scrollTop-=number şeklinde değişiklik yapabilirsiniz. Negatif bir değer
+  //verirseniz scrollTop 0'a eşitlenir. Verdiğiniz değer maksimum kaydırma miktarından büyükse scrollTop maksimum değere eşitlenir.
+
+  //.scrollLeft : Yatay kaydırma çubuğunun soldan uzaklığını almak ya da değiştirmek için kullanılır(Elementler için). scrollTop ile benzer şekilde kullanılır.
+  //NOT : scrollTop ve scrollLeft'te uzaklıklar piksel cinsindendir.
+
+  //.offsetParent : static(position: static) dışında position değerine sahip olan en yakın atayı döndürür. NOT : Element ya da ata display:none olarak ayarlanmışsa null değer döner.
+
+  //.contenteditable : contenteditable özelliğini almak ya da değiştirmek için kullanılır. true, false, inherit değerlerini verebilirsiniz. (inherit : Üst elementin değerini almasını söyler)
+
+  //.dir : dir özelliğini almak ya da değiştirmek için kullanılır. ltr, rtl, auto değerleri verilebilir.
+
+  //.id : id özelliğini almak ya da değiştirmek için kullanılır.
+
+  //.lang : lang özelliğini almak ya da değiştirmek için kullanılır.
+
+  //.title : title özelliğini almak ya da değiştirmek için kullanılır.
+
+  //.tabindex : tabindex özelliğini almak ya da değiştirmek için kullanılır.
+
+  //.exitFullscreen(), requestFullscreen() : https://www.w3schools.com/jsref/met_element_exitfullscreen.asp , https://www.w3schools.com/jsref/met_element_requestfullscreen.asp
+
+  //.style : Geriye CSSStyleDeclaration objesi döndürür. Bu, ilgili elemanın tüm CSS özelliklerini içeren bir objedir. Bkz : Resim9.png  Bu obje üzerinden sadece in-line olarak
+  //tanımlanmış(ya da Javascript ile eklenmiş) CSS stillerini elde edebilirsiniz. Okuma yaparken : element.style.{ozellikAdi} -> camelCase sözdizimi kullanılır. Değişiklik
+  //yaparken : element.style.{ozellikAdi} = value;
+
+  //.cloneNode() : Seçilen elemanın kopyasını döndürür. Bir adet parametresi vardır ve true ya da false değer alır. true verilmişse eleman tüm alt node'leriyle beraber
+  //kopyalanır. Kopyalamaya elemanın ve alt node'lerinin içerikleri ve özellikleri dahildir. Parametre false yapılırsa içerik alınmaz sadece element ve özellikleri kopyalanır.
+  //Kopyaladığınız düğümü belgeye eklemek için appendChild veya insertBefore kullanabilirsiniz.
+
+  //.addEventListener("Olay adı", Fonksiyon Adı, true ya da false) : Seçilen elemana olay tanımlamak için kullanılır. Browser, olay hakkında bilgi içeren bir event objesini 
+  //fonksiyona parametre olarak gönderir.
+
+  //.removeEventListener("Olay adı", Fonksiyon Adı, true ya da false) : addEventListener ile eklenmiş olayı kaldırmak için kullanılır.
+
+  //ref_eleman.insertAdjacentElement(tür, element ) : İkinci parametreye sayfadaki bir elementi verirseniz onu tür parametresine göre taşır. Ya da yeni oluşturduğunuz bir
+  //element varsa ikinci parametreye onu vererek tür parametresine göre sayfaya eklenmesini sağlayabilirsiniz.
+  //İlk parametreye verebileceğiniz değerler :
+  //afterend : Elementi ref elemanın sonrasına ekler.
+  //beforebegin : Elementi ref elemanın öncesine ekler.
+  //afterbegin : Elementi ref elemanın içeriğinin başına ekler.
+  //beforeend : Elementi ref elemanın içeriğinin sonuna ekler.
+  //Anlamadıysan bak : https://www.w3schools.com/jsref/met_node_insertadjacentelement.asp
+
+  //ref_eleman.insertAdjacentHTML(tür, string) : İkinci parametreye string bir değer ya da string türde html kodları veriyorsunuz. İlk parametreye göre onu ekliyor.
+  //tür parametresi insertAdjacentElement() metodunda açıklandı. Anlamadıysan bak :  https://www.w3schools.com/jsref/met_node_insertadjacenthtml.asp
+
+  //ref_eleman.insertAdjacentText(tür, string) : İkinci parametreye sadece string değerler verebilirsiniz. HTML kodları içerirse text olarak görünecektir. Kullanımı insertAdjacentHTML() ile
+  //aynı. Anlamadıysan bak : https://www.w3schools.com/jsref/met_node_insertadjacenttext.asp
+
+  //------------------------------------>Daha fazlası için : "https://www.w3schools.com/jsref/dom_obj_all.asp"
+]
+
+#Event Bubbling ve Event Capturing
+[
+  //Event bubbling : Olay hedef elemandan DOM ağaç yapısı boyunca yukarıya doğru yayılır. addEventListener metodunun üçüncü parametresine false değer verilmelidir.
+  //Spana tıklandığında olay akışı şu şekilde olur : span -> div -> document
+  //dive tıklandığında ise : div -> document
+  //sadece dökümana tıklanırsa : document
+  <div id="div1">
+    <span id="span1">span</span>
+  </div>
+  <script>
+  document.getElementById("div1").addEventListener("click",function(){
+    console.log("Div'e tıklandı");
+  }, false); 
+  document.getElementById("span1").addEventListener("click",function(){
+    console.log("Span'a tıklandı");
+  }, false);
+  document.addEventListener("click",function(){
+    console.log("Dökümana tıklandı");
+  },false);
+  </script>
+
+  //Event capturing : Olay DOM Ağaç yapısına göre kökten hedef elemana doğru ilerler. addEventListener metodunun üçüncü parametresine true değer verilmelidir.
+  //Spana tıklandığında olay akışı şu şekilde olur : document -> div -> span
+  //dive tıklandığında : document -> div
+  //dökümana tıklandığında : document
+  <div id="div1">
+    <span id="span1">span</span>
+  </div>
+  <script>
+  document.getElementById("div1").addEventListener("click",function(){
+    console.log("Div'e tıklandı")
+  }, true); 
+  document.getElementById("span1").addEventListener("click",function(){
+    console.log("Span'a tıklandı")
+  }, true);
+  document.addEventListener("click",function(){
+    console.log("Dökümana tıklandı");
+  },true);
+  </script>
+]
+
+#DOM Events(DOM Olayları) : 
+[
+  //onfocus
+  
+  //onblur
+
+  //onchange
+  <input type="text" id="input1" />
+  <script>
+  var input = document.getElementById("input1");
+  input.addEventListener("focus",function(){
+    console.log(this); //<input type="text" id="input1" />
+  });
+  input.addEventListener("blur",function(){
+    console.log("Blur gerçekleşti") //Blur gerçekleşti
+  });
+  input.addEventListener("change",function(){ //input'tan uzaklaşıldığında değişiklik var mı diye kontrol edilir. Ayrıca blur'dan önce çalışır.
+    console.log("input'un değeri değişti");
+  });
+  </script>
+
+  //onsubmit : Form gönderilmeden önce
+
+  //onreset : Form resetlenmeden önce
+
+  //onkeydown : Klavyeden bir tuşa basıldığında
+
+  //onkeypress : onkeydown'dan sonra. NOT : keypress ctrl , alt , insert gibi harf ve karakter olmayan "bazı" tuşlar için çalışmaz. keydown ve keyup'da böyle bir sınırlama yoktur.
+
+  //onkeyup : Basılan tuş bırakıldığında.
+  //NOT : Tuş basılı olarak tutulursa keydown ve keypress olayları devamlı gerçekleşir bu sırada keyup çalışmaz. keyup basılı tutulan tuş bırakıldığında çalışır.
+
+  //onclick : Fare ile tıklandığında.(Sadece sol tuş)
+
+  //ondblclick : Çift tıklandığında.(Sol tuş)
+
+  //onmouseover : Fare ile üzerine gelindiğinde. İçteki elemanların üzerine geldiğinizde tekrar çalışır.
+
+  //onmouseout : Fare üzerinden çekildiğinde. İçteki elemanlar için de çalışır.
+
+  //onmouseenter : Fare ile üzerine gelindiğinde. İçteki elemanlar için tekrar çalışmaz.
+
+  //onmouseleave : Fare üzerinden çekildiğinde. İçteki elemanlar için çalışmaz.
+
+  //onmousemove : Fare ile üzerinde gezildikçe.
+
+  //onmousedown : Farenin herhangi bir tuşuna basıldığında.
+
+  //onmouseup : Farenin basılı tuşu bırakıldığında. Basılan tuş event objesinin button özelliği ile öğrenilebilir.
+  //NOT : onmousedown ile onmouseup kullanımı arasında hiçbir fark yoktur.
+  document.onmousedown=function(e){
+    console.log(e.button);  //0 : Sol tuş , 1 : Tekerleğe basılmış , 2 : Sağ tuş
+  };
+
+  //onscroll : Kaydırma çubuğu hareket ettirildiğinde. Bir element(mesela divin kaydırma çubuğu) ya da window objesi üzerinde kullanılabilir.
+  
+  //DOMContentLoaded : Sayfadaki herşey yüklendikten sonra gerçekleşir. document objesi üzerinde kullanılır.
+
+  //onresize : Tarayıcı penceresi yeniden boyutlandırıldığında. <body></body> etiketi üzerinde kullanılır.
+
+  
+  //------------------------------------> NOT : Bu başlık altında gördüğünüz olayları addEventListener metodu ile beraber kullanmak zorunda değilsiniz. 
+  //ilgili eleman seçildikten sonra element.olayAdi=function(){} şeklinde de kullanılabilir.
+]
+
+#DOM Event Objesi
+[
+  //event.clientX : Farenin sayfadaki x kordinatını verir. Fare sayfanın en solunda iken bu değer 0'dır.
+  //event.clientY : Farenin sayfadaki y kordinatını verir. Fare sayfanın en üstünde iken bu değer 0'dır.
+  <div id="div1"></div>
+  <script>
+    document.onmousemove=function(e){
+    document.getElementById("div1").innerHTML=e.clientX+"-"+e.clientY;
+  }
+  </script>
+
+  //event.pageX : Farenin dökümandaki x kordinatını verir.
+  //event.pageY : Farenin dökümandaki y kordinatını verir.
+  
+  //event.screenX : Farenin ekrandaki x kordinatını verir.
+  //event.screenY : Farenin ekrandaki y kordinatını verir.
+
+  //event.offsetX : Farenin gezdiği katmandaki x kordinatını verir.
+  //event.offsetY : Farenin gezdiği katmandaki y kordinatını verir.
+
+  //event.which : Basılan tuşun ASCII kodunu verir. keydown ve keyup olaylarında büyük küçük harf ayrımı yapmaz.
+
+  //event.type : Olayın tipini başında on eki olmadan verir.
+
+  //event.target : Olayın gerçekleştiği elemanı seçer.
+
+  //event.stopPropagation() : Olayın yayılmasını önler. (event bubbling, event capturing)
+
+  //event.stopImmediatePropagation() : https://www.w3schools.com/jsref/event_stopimmediatepropagation.asp
+
+  //event.shiftKey : shifth tuşuna basılmışsa true aksi halde false döndürür.
+
+  //event.altKey : alt tuşuna basılmışsa true aksi halde false döndürür.
+
+  //event.ctrlKey : ctrl tuşuna basılmışsa true aksi halde false döndürür.
+
+  //event.preventDefault() : Bir bağlantının açılmasını ya da formun gönderilmesini engellemek için kullanılır.
+]
+
+
+
+
+
+-BOM(Browser Object Model)-
+BOM yapısını görmek için BOM.png isimli görsele bakınız.
+
+#(location)
+[
+  //https://www.w3schools.com/jsref/obj_location.asp
+]
+
+#(navigator)
+[
+  //https://www.w3schools.com/jsref/obj_navigator.asp
+]
+
+#(screen)
+[
+  //screen.width : Ekran genişliğini verir.
+  //screen.height : Ekran yüksekliğini verir.
+
+  //screen.availWidth : Ekranın kullanılabilir genişliğini verir.
+  //screen.availHeight : Ekranın kullanılabilir yüksekliğini verir.
+  //Ekran çözünürlüğüm : 1366x768
+  console.log("Genişlik: "+window.screen.width); //1366
+  console.log("Yükseklik: "+window.screen.height); //768
+  console.log("Kullanılabilir Genişlik: "+window.screen.availWidth); //1366
+  console.log("Kullanılabilir Yükseklik: "+window.screen.availHeight); //728 NOT:Başlat çubuğu gizlenirse 768 değeri alınır.
+]
+
+#(history)
+[
+  //history.back() : Tarayıcının geri tuşu ile aynı işi yapar. Bir önceki sayfaya gitmek için kullanılır. Bazen sayfalar yeni sekmede
+  //açılırlar ve bu sayfalarda geri tuşu pasiftir. Eğer geri tuşu pasifse bu metot da ilgili sayfada çalışmayacaktır.
+
+  //history.forward() : Tarayıcının ileri tuşu ile aynı işi yapar. Benzer şekilde ileri tuşu pasifse yani bir sonraki sayfa geçmiş listesinde
+  //yoksa bu metot çalışmayacaktır.
+
+  //history.length : Geçmiş listesindeki URL sayısını döndürür. Detay : https://www.w3schools.com/jsref/prop_his_length.asp
+
+  //history.go() : https://www.w3schools.com/jsref/met_his_go.asp
+]
+
+#(window)
+[
+  //https://www.w3schools.com/jsref/obj_window.asp
+
+  //scrollTo(x, y) : Tarayıcının kaydırma çubuğunu belirtilen koordinatlara(uzaklık px cinsinden) kaydırır.
+  window.scrollTo(0, 100); //Başlangıç noktasına olan uzaklığı 100px olacaktır.
+  window.scrollTo(0, 100); //Tekrar çalıştırdığımızda 100px daha aşağıya kaymaz. Belli bir noktaya değil de ek bir kaydırma yapacaksanız scrollBy() metodunu kullanın.
+
+  //scrollBy(x, y) : Tarayıcının kaydırma çubuğunu belirtilen değerler kadar kaydırır.
+  window.scrollBy(0, 100); //Kaydırma çubuğu 100px aşağıya kayar.
+  window.scrollBy(0,100); //Tekrar çalıştırdığımızda 100px daha aşağıya kayar. Tekrar tekrar çalıştırarak uzaklığı değiştirebilirsiniz. scrollBy'a negatif değerler de verebiliyoruz.
+
+  //pageXOffset : Tarayıcının kaydırma çubuğunun soldan uzaklığını döndürür.
+
+  //pageYOffset : Tarayıcının kaydırma çubuğunun üstten uzaklığını döndürür.
+
+  //print() : Sayfanın çıktısını almak için kullanılır.
+  window.print(); //Yazdırma penceresi açılır.
+
+
+
+{
+  //matchMedia("medya_sorgusu") : Parametre olarak bir medya sorgusu veriyoruz(zorunlu) o da geriye MediaQueryList adında bir obje döndürüyor. Bu objenin özellik ve metotları :
+  //.matches : Sorgu doğruysa true, değilse bu özellik false değere sahip oluyor.
+  //.media : Bu özellik matchMedia fonksiyonana parametre olarak verdiğimiz sorguyu string türünde tutuyor.
+
+  //Sayfada bir değişiklik yaptığımızda matches özelliğinin değeri değişmiş olabilir. Bu değişikliği algılamanın iki yolu var. Birincisi zaten matchMedia .addListener adında bir metoda sahip.
+
+  //.addListener(fonksiyon_adi) :  matches özelliğinin değeri her değiştiğinde parametre olarak verilen fonksiyonu çalıştırır.
+  //.removeListener(fonksiyon_adi) : addListener ile eklediğimiz dinleyiciyi kaldırmak için kullanılır.
+  
+  var test = window.matchMedia("(max-width: 720px) and (min-width: 480px)");
+  console.log(test); //MediaQueryList objesini döndürür.
+  console.log(test.matches); //false -> Pencere genişliği koşulu sağlamıyordu : 1920px
+  console.log(test.media); //(max-width: 480px) and (min-width:320px)
+
+  function Info(){
+    console.log("Bilgi mesajı"); 
+  }
+
+  test.addListener(Info); //Pencere genişliği aralığa girdiğinde ya da aralıktan çıktığında Info fonksiyonu çalışacak.
+
+  //NOT : adddListener adında bir metot olmasaydı değişikliği algılamak için aşağıdaki kodu kullanabilirdik :
+  
+  var test = window.matchMedia("(max-width: 720px) and (min-width: 480px)");
+  var x = test.matches; //1.true ya da false bir değere sahip olacak.
+
+  window.onresize = function(){ //2.Pencere genişliği her değiştiğinde test objesinin matches özelliğinin değerini kontrol edeceğiz.
+    if(x != this.test.matches){ //3.matches özelliğinin değeri değişmişse,
+        console.log("Değişti"); //4.Bilgi metni konsola yazılacak
+        x = this.test.matches; //5.Ve yeni değerini x'e eklememiz lazım ki pencere yeniden boyutlandırıldığında kontrolü x üzerinden yapabilelim.
+    }
+}
+
+
+
+{
+  //getComputedStyle(element, pseudo_element) : Parametre olarak verdiğimiz elemanın tüm CSS özelliklerini içeren bir CSSStyleDecloration objesi döndürür.
+  //Bu obje devralınan, dış stil sayfaları tarafından uygulanan, tarayıcı tarafından uygulanan varsayılan stilleri de içerir. İkinci parametrenin kullanımı
+  //isteğe bağlıdır.
+
+  <div id="box"></div>
+
+  var el = document.getElementById("box");
+  var style = window.getComputedStyle(el);
+
+  console.log(style); //CSSStyleDecloration objesi konsola yazılır. Konsolda objenin içeriğine bakıp fikir sahibi olabilirsiniz.
+
+  //Şimdi bu objenin bazı metotlarını kullanarak tüm stil isimlerini ve değerlerini alacağız.
+
+  var i = 0, len = style.length;
+
+  for(;i<len;i++){
+    var propertyName = style.item(i);
+    console.log(propertyName + "-" + style.getPropertyValue(propertyName));
+  }
+
+  //getPropertyValue(string) : İlgili özelliğin değerini döndürür.
+  //item(index) : İlgili index'deki özelliğin adını string olarak döndürür. 
+  
+  //pseudo_element parametresi : Diyelim #test::first-letter{} şeklinde bir seçiniz var. Şimdi siz #test id'li elemana gidip 25px font-size değeri verirseniz ve ayrıca
+  //#test::first-letter{} ile ilk harfe 100px font-size tanımlaması yaparsanız getComputedStyle bize #test id'li seçici içerisindeki font-size değerini döndürür. Peki ilk 
+  //harfe first-letter ile uygulanan stilleri nasıl alacağız. İşte ikinci parametre bu yüzden var.
+  
+  var el = document.getElementById("test");
+  var style = window.getComputedStyle(el);
+  var style2 = window.getComputedStyle(el, "first-letter");
+
+  console.log(style.getPropertyValue("font-size")); //25px
+  console.log(style2.getPropertyValue("font-size")); //100px
+}
+
+
+
+{
+  //window.parent : Geçerli pencerenin bir üst penceresini döndürür. (window objesi olarak) Üstte pencere yoksa geçerli pencere döner.
+
+  //window.top : Geçerli pencerenin, en üstteki tarayıcı penceresini döndürür.(window objesi olarak) Üstte pencere yoksa geçerli pencere döner.
+  
+  //window.self : Geçerli pencereyi döndürür.(window objesi olarak) Üstte pencere yoksa geçerli pencere döner. -> self özelliği genellikle aşağıdaki gibi karşılaştırmada kullanılır.
+
+  //Örnek : -> Çıktısı için "Resim10.jpg" ye bakınız.
+  //index.html sayfa içeriği
+  <img id="img1" src="pic.jpg" /> <!-- Sayfada bir resim var -->
+  <iframe src="deneme.html" style="width:400px; height:400px"></iframe> <!-- iframe içerisinde deneme.html'i gösteriyoruz. -->
+
+  //deneme.html içeriği
+  <div id="box"></div> <!-- index.html'deki img'nin src özelliğini birazdan buraya yazdıracağız. -->
+  <script>
+    if(window.top != window.self){ //İki pencere eşit olmadığı için iframe içinde olduğumuzu söyleyebiliriz.
+      document.getElementById("box").innerHTML = window.top.document.getElementById("img1").src; //Üst penceredeki img'nin src özelliğini bu sayfadan elde ettik :)
+    }
+  </script>
+}
+
+
+
+  //window.btoa(string) : Parametre olarak verilen string'i Base-64 olarak kodlar.
+
+  //window.atob(encoded_string) : Base-64 olarak kodlanmış bir string'i decode edip geri döndürür.
+
+  //window.screenX : Browser'in sol kenarıyla ekranın sol kenarı arasındaki mesafeyi verir.
+
+  //window.screenY : Browser'in üst kenarıyla ekranın üst kenarı arasındaki mesafeyi verir.
+
+  //window.outerWidth : Tarayıcı penceresinin kapladığı alanın genişliğini verir.
+
+  //window.outerHeight : Tarayıcı penceresinin kapladığı alanın yüksekliğini verir.
+
+  //window.innerWidth : Sayfanın(Pencerenin içerik alanının) genişliğini döndürür.
+
+  //window.innerHeight : Sayfanın(Pencerenin içerik alanının) yüksekliğini döndürür.
+
+  //window.focus() : Odağı geçerli pencereye ayarlar.
+
+  //window.blur() : Odağı geçerli pencereden kaldırır.
+]
+
+
+
+
+
+
+
